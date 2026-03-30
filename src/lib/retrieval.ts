@@ -1,6 +1,12 @@
 import { Index } from "@upstash/vector";
 
-const index = new Index();
+// Helper to get index lazily so Next.js build doesn't crash if env vars are misconfigured
+function getIndex() {
+  return new Index({
+    url: process.env.UPSTASH_VECTOR_REST_URL!,
+    token: process.env.UPSTASH_VECTOR_REST_TOKEN!,
+  });
+}
 
 export type RetrievedChunk = {
   id: string;
@@ -13,7 +19,7 @@ export async function retrieveRelevantChunks(
   queryEmbedding: number[],
   limit = 3,
 ): Promise<RetrievedChunk[]> {
-  const results = await index.query({
+  const results = await getIndex().query({
     vector: queryEmbedding,
     topK: limit,
     includeMetadata: true,
