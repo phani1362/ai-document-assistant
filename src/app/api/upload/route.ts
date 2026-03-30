@@ -3,7 +3,6 @@ import { chunkText } from "@/lib/chunk";
 import { createEmbeddings } from "@/lib/embeddings";
 import { saveDocument } from "@/lib/store";
 import mammoth from "mammoth";
-const pdfParse = require("pdf-parse");
 
 export async function POST(request: Request) {
   try {
@@ -37,6 +36,7 @@ export async function POST(request: Request) {
         text = (await file.text()).trim();
       } else if (fileName.endsWith(".pdf")) {
         const buffer = Buffer.from(await file.arrayBuffer());
+        const pdfParse = require("pdf-parse");
         const pdfData = await pdfParse(buffer);
         text = pdfData.text.trim();
       } else if (fileName.endsWith(".docx")) {
