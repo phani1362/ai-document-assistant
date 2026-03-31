@@ -4,16 +4,19 @@ import { cookies } from "next/headers";
 export async function POST(request: Request) {
   try {
     const { password } = await request.json();
-    const APP_PASSWORD = process.env.APP_PASSWORD;
+    const APP_PASSWORD = process.env.APP_PASSWORD?.trim();
 
+    console.log("Auth attempt received.");
     if (!APP_PASSWORD) {
+      console.error("FATAL: APP_PASSWORD is not set in environment variables.");
       return NextResponse.json(
-        { error: "Authentication is not configured." },
+        { error: "Authentication is not configured properly." },
         { status: 500 }
       );
     }
 
     if (password === APP_PASSWORD) {
+      console.log("Auth successful: Password matched.");
       const cookieStore = await cookies();
       
       // Set a secure, HTTP-only cookie
