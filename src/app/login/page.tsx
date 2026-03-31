@@ -39,9 +39,11 @@ function LoginContent() {
       });
 
       if (res.ok) {
+        console.log("Login successful! Redirecting to:", from);
         router.push(from);
       } else {
         const data = await res.json();
+        console.error("Login failed:", data.error);
         setError(data.error || "Invalid password. Please try again.");
       }
     } catch (err) {
