@@ -3,28 +3,26 @@ import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
-  // Define which paths should be protected
-  const isAppPath = pathname.startsWith("/app");
   
-  // Check for the auth-token cookie
+  // Public paths that never need protection
+  if (pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/api/auth")) {
+    return NextResponse.next();
+  }
+
+  const isAppPath = pathname.startsWith("/app");
   const authToken = request.cookies.get("auth-token");
 
-  if (isAppPath) {
-    if (!authToken) {
-      console.log("Middleware: No auth-token found for", pathname, "- Redirecting to /login");
-      const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("from", pathname);
-      return NextResponse.redirect(loginUrl);
-    } else {
-      console.log("Middleware: Valid auth-token detected for", pathname);
-    }
+  // Only protect /app routes
+  if (isAppPath && !authToken) {
+    console.log(`Middleware: Redirecting ${pathname} to /login`);
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("from", pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/app/:path*"],
+  matcher: ["/app/:path*", "/login", "/"],
 };

@@ -40,7 +40,8 @@ function LoginContent() {
 
       if (res.ok) {
         console.log("Login successful! Redirecting to:", from);
-        router.push(from);
+        // Force a hard navigation for reliability in production
+        window.location.href = from;
       } else {
         const data = await res.json();
         console.error("Login failed:", data.error);
