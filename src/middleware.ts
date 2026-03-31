@@ -10,12 +10,15 @@ export function middleware(request: NextRequest) {
   // Check for the auth-token cookie
   const authToken = request.cookies.get("auth-token");
 
-  // If trying to access /app without a valid cookie, redirect to /login
-  if (isAppPath && !authToken) {
-    const loginUrl = new URL("/login", request.url);
-    // Optional: Pass the original URL to redirect back after login
-    loginUrl.searchParams.set("from", pathname);
-    return NextResponse.redirect(loginUrl);
+  if (isAppPath) {
+    if (!authToken) {
+      console.log("Middleware: No auth-token found for", pathname, "- Redirecting to /login");
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("from", pathname);
+      return NextResponse.redirect(loginUrl);
+    } else {
+      console.log("Middleware: Valid auth-token detected for", pathname);
+    }
   }
 
   return NextResponse.next();

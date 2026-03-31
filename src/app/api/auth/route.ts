@@ -19,11 +19,10 @@ export async function POST(request: Request) {
       console.log("Auth successful: Password matched.");
       const cookieStore = await cookies();
       
-      // Set a secure, HTTP-only cookie
       cookieStore.set("auth-token", "authenticated", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "lax",
         maxAge: 60 * 60 * 24 * 7, // 7 days
         path: "/",
       });
