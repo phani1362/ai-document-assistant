@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import crypto from "crypto";
+
+function tokenFromPassword(password: string): string {
+  return crypto.createHash("sha256").update(password).digest("hex");
+}
 
 export async function POST(request: Request) {
   try {
     const { password } = await request.json();
     const APP_PASSWORD = process.env.APP_PASSWORD?.trim();
 
-    console.log("Auth attempt received.");
     if (!APP_PASSWORD) {
       console.error("FATAL: APP_PASSWORD is not set in environment variables.");
       return NextResponse.json(
@@ -16,14 +20,13 @@ export async function POST(request: Request) {
     }
 
     if (password === APP_PASSWORD) {
-      console.log("Auth successful: Password matched.");
       const cookieStore = await cookies();
-      
-      cookieStore.set("auth-token", "authenticated", {
+
+      cookieStore.set("auth-token", tokenFromPassword(APP_PASSWORD), {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: 60 * 60 * 24 * 7, // 7 days
+        maxAge: 60 * 60 * 24 * 7,
         path: "/",
       });
 
@@ -43,12 +46,12 @@ export async function POST(request: Request) {
   }
 }
 
-// Add a GET method to check if the user is authenticated (useful for client-side checks)
 export async function GET() {
   const cookieStore = await cookies();
   const authToken = cookieStore.get("auth-token");
+  const APP_PASSWORD = process.env.APP_PASSWORD?.trim();
 
-  if (authToken) {
+  if (APP_PASSWORD && authToken?.value === tokenFromPassword(APP_PASSWORD)) {
     return NextResponse.json({ authenticated: true });
   }
 
