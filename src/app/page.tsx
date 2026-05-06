@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const workflowItems = [
-  "Upload a .txt document",
+  "Upload a .txt, .pdf, .docx file",
   "Ask questions about the document",
   "Get answers with source references",
 ];
@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent" />
 
       <div className="mobile-safe relative mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-7xl flex-col">
-        <header className="animate-fade-up flex min-w-0 items-center justify-between gap-3 border-b border-slate-200/80 pb-5">
+        <header className="animate-fade-up flex min-w-0 items-center justify-start gap-3 border-b border-slate-200/80 pb-5">
           <Link href="/" className="flex min-w-0 items-center gap-3">
             <span className="grid h-9 w-9 place-items-center rounded-[8px] bg-slate-950 text-white shadow-lg shadow-slate-900/10">
               <svg
@@ -38,37 +38,11 @@ export default function HomePage() {
                 />
               </svg>
             </span>
-            <span className="truncate text-sm font-semibold tracking-tight text-slate-900">
-              RAG-Powered Document Q&A
-            </span>
-          </Link>
-          <Link
-            href="/app"
-            className="group inline-flex shrink-0 items-center gap-2 rounded-[8px] border border-slate-300 bg-white/85 px-3 py-2 text-sm font-semibold text-slate-800 shadow-sm shadow-slate-900/5 backdrop-blur transition hover:border-blue-300 hover:text-blue-700 sm:px-4"
-          >
-            <span className="hidden sm:inline">Open App</span>
-            <svg
-              aria-hidden="true"
-              className="h-4 w-4 transition group-hover:translate-x-0.5"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M5 12h14m-6-6 6 6-6 6"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="1.8"
-              />
-            </svg>
           </Link>
         </header>
 
         <section className="grid w-full flex-1 items-center gap-12 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:py-10">
           <div className="mobile-safe min-w-0 max-w-3xl">
-            <span className="animate-fade-up inline-flex rounded-[8px] border border-blue-200 bg-white/80 px-3 py-1.5 text-sm font-semibold text-blue-700 shadow-sm shadow-blue-900/5 backdrop-blur">
-              RAG-Powered Document Q&A
-            </span>
             <div className="mt-7 space-y-6">
               <h1 className="animate-fade-up animate-delay-1 max-w-3xl text-5xl font-semibold leading-[0.95] tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
                 AI Document Assistant
@@ -80,7 +54,7 @@ export default function HomePage() {
             </div>
             <div className="animate-fade-up animate-delay-3 mt-9 flex flex-wrap items-center gap-3">
               <Link
-                href="/app"
+                href="/login"
                 className="group relative isolate inline-flex items-center gap-2 overflow-hidden rounded-[8px] bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
                 <span className="absolute inset-y-0 left-0 -z-10 w-10 translate-x-[-120%] rotate-12 bg-white/25 transition duration-700 group-hover:translate-x-[340%]" />
