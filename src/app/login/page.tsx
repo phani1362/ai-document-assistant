@@ -19,7 +19,7 @@ function LoginContent() {
         if (res.ok) {
           router.push(from);
         }
-      } catch (e) {
+      } catch {
         // Not authenticated
       }
     };
@@ -47,7 +47,7 @@ function LoginContent() {
         console.error("Login failed:", data.error);
         setError(data.error || "Invalid password. Please try again.");
       }
-    } catch (err) {
+    } catch {
       setError("An unexpected error occurred. Please try again later.");
     } finally {
       setIsLoading(false);
@@ -55,16 +55,12 @@ function LoginContent() {
   };
 
   return (
-    <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#f5f7fb]">
-      {/* Background blobs for aesthetic */}
-      <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-      <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-
-      <div className="z-10 w-full max-w-md px-6">
-        <div className="rounded-3xl border border-white/20 bg-white/70 p-8 shadow-2xl backdrop-blur-xl md:p-10">
+    <main className="relative flex min-h-screen w-full items-center justify-start overflow-hidden px-5 py-10 sm:justify-center">
+      <div className="animated-grid pointer-events-none absolute inset-x-0 top-0 h-[520px]" />
+      <div className="mobile-safe z-10 w-full max-w-[380px]">
+        <div className="animate-fade-up rounded-[8px] border border-slate-200 bg-white/90 p-6 shadow-2xl shadow-slate-900/12 backdrop-blur-xl sm:p-8">
           <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-200">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-[8px] bg-blue-600 shadow-lg shadow-blue-600/20">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -77,15 +73,15 @@ function LoginContent() {
                 strokeLinejoin="round"
                 className="text-white"
               >
-                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                <rect width="18" height="11" x="3" y="11" rx="1.5" ry="1.5" />
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
               Secure Access Required
             </h1>
             <p className="mt-2 text-sm text-slate-600">
-              Enter the access code to unlock the AI Document Assistant.
+              Enter the access code to unlock RAG-Powered Document Q&A.
             </p>
           </div>
 
@@ -106,7 +102,7 @@ function LoginContent() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-xl border border-slate-200 bg-white/50 px-4 py-3 text-slate-900 shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none placeholder:text-slate-400"
+                  className="block w-full rounded-[8px] border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 shadow-sm transition-all placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                   placeholder="••••••••"
                 />
               </div>
@@ -120,7 +116,7 @@ function LoginContent() {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 active:scale-[0.98] disabled:opacity-70"
+              className="flex w-full items-center justify-center rounded-[8px] bg-slate-950 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/12 transition-all hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 active:scale-[0.98] disabled:opacity-70"
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">
@@ -152,39 +148,13 @@ function LoginContent() {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-slate-100 text-center">
+          <div className="mt-8 border-t border-slate-100 pt-6 text-center">
             <p className="text-xs text-slate-500">
               Protected portfolio project. Unauthorized access is monitored.
             </p>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2000ms;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4000ms;
-        }
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-      `}</style>
     </main>
   );
 }

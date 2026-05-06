@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     }
 
     const fileName = file.name.toLowerCase();
-    
+
     if (
       !fileName.endsWith(".txt") &&
       !fileName.endsWith(".pdf") &&
@@ -36,8 +36,10 @@ export async function POST(request: Request) {
         text = (await file.text()).trim();
       } else if (fileName.endsWith(".pdf")) {
         const buffer = Buffer.from(await file.arrayBuffer());
-        const pdfParse = require("pdf-parse");
-        const pdfData = await pdfParse(buffer);
+        const { PDFParse } = await import("pdf-parse");
+        const parser = new PDFParse({ data: buffer });
+        const pdfData = await parser.getText();
+        await parser.destroy();
         text = pdfData.text.trim();
       } else if (fileName.endsWith(".docx")) {
         const buffer = Buffer.from(await file.arrayBuffer());
@@ -47,7 +49,10 @@ export async function POST(request: Request) {
     } catch (parseError) {
       console.error("Document parse error:", parseError);
       return NextResponse.json(
-        { error: "Failed to read the file contents. The file may be corrupt or encrypted." },
+        {
+          error:
+            "Failed to read the file contents. The file may be corrupt or encrypted.",
+        },
         { status: 400 },
       );
     }

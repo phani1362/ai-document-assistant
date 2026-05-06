@@ -28,7 +28,7 @@ export function LogoutButton() {
     <button
       onClick={handleLogout}
       disabled={isLoggingOut}
-      className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-slate-900 disabled:opacity-50"
+      className="inline-flex items-center gap-2 rounded-[8px] border border-slate-300 bg-white/85 px-3.5 py-2 text-sm font-semibold text-slate-600 shadow-sm shadow-slate-900/5 backdrop-blur transition hover:-translate-y-0.5 hover:border-orange-200 hover:bg-orange-50 hover:text-orange-700 disabled:opacity-50"
     >
       {isLoggingOut ? (
         <svg

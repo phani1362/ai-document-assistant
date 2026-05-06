@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI Document Assistant",
-  description: "Upload a TXT file and ask grounded questions about it.",
+  title: "RAG-Powered Document Q&A",
+  description:
+    "Upload a document, ask questions, and get accurate answers grounded in the uploaded content with visible source references.",
 };
 
 export default function RootLayout({
