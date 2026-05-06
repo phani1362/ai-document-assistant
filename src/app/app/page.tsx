@@ -60,7 +60,7 @@ export default function AppPage() {
 
           <div className="grid grid-cols-3 gap-3 rounded-[8px] border border-slate-200 bg-white/80 p-3 shadow-sm shadow-slate-900/5 backdrop-blur">
             {[
-              ["Upload", ".txt document"],
+              ["Upload", ".txt, .pdf, .docx"],
               ["Ask", "document Q&A"],
               ["Sources", "references"],
             ].map(([label, value]) => (

@@ -25,7 +25,7 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
     const file = inputRef.current?.files?.[0];
 
     if (!file) {
-      setError("Choose a valid .txt document first.");
+      setError("Choose a valid document (.txt, .pdf, or .docx).");
       return;
     }
 
@@ -81,7 +81,7 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
             Upload Document
           </h2>
           <p className="mt-1 text-sm leading-6 text-slate-600">
-            Upload a .txt document
+            Upload a .txt, .pdf, or .docx file
           </p>
         </div>
       </div>
@@ -91,7 +91,7 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
           <input
             ref={inputRef}
             type="file"
-            accept=".txt,text/plain"
+            accept=".txt,text/plain,.pdf,application/pdf,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             className="sr-only"
             onChange={(event) =>
               setSelectedFileName(event.currentTarget.files?.[0]?.name ?? "")
