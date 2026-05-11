@@ -1,6 +1,23 @@
 {
   "name": "ai-document-assistant",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Intelligent document assistant powered by RAG (Retrieval-Augmented Generation) with OpenAI and Upstash Vector",
+  "author": "Phanendra Palle",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ragsystem"
+  },
+  "keywords": [
+    "rag",
+    "semantic-search",
+    "document-assistant",
+    "embeddings",
+    "openai",
+    "next.js",
+    "typescript",
+    "ai"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
