@@ -1,9 +1,38 @@
-node_modules
-.next
-.env.local
-dist
-coverage
-.DS_Store
-tsconfig.tsbuildinfo
-.vercel
+# Dependencies
+node_modules/
+package-lock.json
 
+# Environment
+.env.local
+.env.*.local
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Development
+tsconfig.tsbuildinfo
+
+
+# Testing
+coverage/
+
+# Deployment
+.vercel/
+
+# Documentation
+*.docx
+*.doc
