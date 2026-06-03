@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { toClientError } from "@/lib/api-errors";
 import { chunkText } from "@/lib/chunk";
 import { createEmbeddings } from "@/lib/embeddings";
 import { saveDocument } from "@/lib/store";
@@ -90,9 +91,11 @@ export async function POST(request: Request) {
       status: "ready",
     });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Upload failed unexpectedly.";
+    const clientError = toClientError(error, "Upload failed unexpectedly.");
 
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      { error: clientError.error },
+      { status: clientError.status },
+    );
   }
 }

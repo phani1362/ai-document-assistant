@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { toClientError } from "@/lib/api-errors";
 import { createChatCompletion, createQueryEmbedding } from "@/lib/embeddings";
 import { retrieveRelevantChunks } from "@/lib/retrieval";
 import { hasDocument } from "@/lib/store";
@@ -52,9 +53,11 @@ export async function POST(request: Request) {
       })),
     });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Chat request failed.";
+    const clientError = toClientError(error, "Chat request failed.");
 
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(
+      { error: clientError.error },
+      { status: clientError.status },
+    );
   }
 }

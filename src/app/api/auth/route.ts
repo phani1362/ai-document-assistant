@@ -9,6 +9,7 @@ function tokenFromPassword(password: string): string {
 export async function POST(request: Request) {
   try {
     const { password } = await request.json();
+    const submittedPassword = typeof password === "string" ? password.trim() : "";
     const APP_PASSWORD = process.env.APP_PASSWORD?.trim();
 
     if (!APP_PASSWORD) {
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (password === APP_PASSWORD) {
+    if (submittedPassword === APP_PASSWORD) {
       const cookieStore = await cookies();
 
       cookieStore.set("auth-token", tokenFromPassword(APP_PASSWORD), {
