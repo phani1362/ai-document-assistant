@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const workflowItems = [
-  "Upload a .txt, .pdf, .docx file",
+  "Upload a .txt, .md, .csv, .pdf, or .docx file",
   "Ask questions about the document",
   "Get answers with source references",
 ];
