@@ -56,7 +56,7 @@ function LoginContent() {
     <main className="relative flex min-h-screen w-full items-center justify-start overflow-hidden px-5 py-10 sm:justify-center">
       <div className="animated-grid pointer-events-none absolute inset-x-0 top-0 h-[520px]" />
       <div className="mobile-safe z-10 w-full max-w-[380px]">
-        <div className="animate-fade-up rounded-[8px] border border-slate-200 bg-white/90 p-6 shadow-2xl shadow-slate-900/12 backdrop-blur-xl sm:p-8">
+        <div className="animate-fade-up rounded-[8px] border border-slate-200 bg-white/90 p-6 shadow-2xl shadow-slate-900/12 backdrop-blur-xl sm:p-8 dark:border-slate-700 dark:bg-slate-900/70">
           <div className="mb-8 text-center">
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-[8px] bg-blue-600 shadow-lg shadow-blue-600/20">
               <svg
@@ -75,10 +75,10 @@ function LoginContent() {
                 <path d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </div>
-            <h1 className="text-2xl font-semibold tracking-tight text-slate-950">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
               Secure Access Required
             </h1>
-            <p className="mt-2 text-sm text-slate-600">
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
               Enter the access code to unlock RAG-Powered Document Q&A.
             </p>
           </div>
@@ -87,7 +87,7 @@ function LoginContent() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-slate-700"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
               >
                 Access Password
               </label>
@@ -100,7 +100,7 @@ function LoginContent() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-[8px] border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 shadow-sm transition-all placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="block w-full rounded-[8px] border border-slate-300 bg-slate-50 px-4 py-3 text-slate-900 shadow-sm transition-all placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:bg-slate-800"
                   placeholder="••••••••"
                 />
               </div>
@@ -114,7 +114,7 @@ function LoginContent() {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full items-center justify-center rounded-[8px] bg-slate-950 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/12 transition-all hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 active:scale-[0.98] disabled:opacity-70"
+              className="flex w-full items-center justify-center rounded-[8px] bg-slate-950 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-900/12 transition-all hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900/10 active:scale-[0.98] disabled:opacity-70 dark:bg-blue-600 dark:hover:bg-blue-500"
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">
@@ -146,8 +146,8 @@ function LoginContent() {
             </button>
           </form>
 
-          <div className="mt-8 border-t border-slate-100 pt-6 text-center">
-            <p className="text-xs text-slate-500">
+          <div className="mt-8 border-t border-slate-100 pt-6 text-center dark:border-slate-700">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Protected portfolio project. Unauthorized access is monitored.
             </p>
           </div>
@@ -160,7 +160,7 @@ function LoginContent() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center bg-[#f5f7fb]">
+      <div className="flex min-h-screen items-center justify-center bg-[#f5f7fb] dark:bg-[#0b1120]">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
       </div>
     }>

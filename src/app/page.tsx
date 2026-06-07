@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const workflowItems = [
   "Upload a .txt, .pdf, .docx file",
@@ -8,14 +9,14 @@ const workflowItems = [
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen overflow-hidden px-5 py-6 text-slate-950 sm:px-8">
+    <main className="relative min-h-screen overflow-hidden px-5 py-6 text-slate-950 dark:text-slate-100 sm:px-8">
       <div className="animated-grid pointer-events-none absolute inset-x-0 top-0 h-[520px]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent" />
 
       <div className="mobile-safe relative mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-7xl flex-col">
-        <header className="animate-fade-up flex min-w-0 items-center justify-start gap-3 border-b border-slate-200/80 pb-5">
+        <header className="animate-fade-up flex min-w-0 items-center justify-between gap-3 border-b border-slate-200/80 pb-5 dark:border-slate-700/80">
           <Link href="/" className="flex min-w-0 items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-[8px] bg-slate-950 text-white shadow-lg shadow-slate-900/10">
+            <span className="grid h-9 w-9 place-items-center rounded-[8px] bg-slate-950 text-white shadow-lg shadow-slate-900/10 dark:bg-blue-600">
               <svg
                 aria-hidden="true"
                 className="h-5 w-5"
@@ -39,15 +40,16 @@ export default function HomePage() {
               </svg>
             </span>
           </Link>
+          <ThemeToggle />
         </header>
 
         <section className="grid w-full flex-1 items-center gap-12 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:py-10">
           <div className="mobile-safe min-w-0 max-w-3xl">
             <div className="mt-7 space-y-6">
-              <h1 className="animate-fade-up animate-delay-1 max-w-3xl text-5xl font-semibold leading-[0.95] tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+              <h1 className="animate-fade-up animate-delay-1 max-w-3xl text-5xl font-semibold leading-[0.95] tracking-tight text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
                 AI Document Assistant
               </h1>
-              <p className="animate-fade-up animate-delay-2 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+              <p className="animate-fade-up animate-delay-2 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400 sm:text-xl">
                 Upload a document, ask questions, and get accurate answers
                 grounded in the uploaded content with visible source references.
               </p>
@@ -74,7 +76,7 @@ export default function HomePage() {
                   />
                 </svg>
               </Link>
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-500">
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_5px_rgba(16,185,129,0.14)]" />
                 Visible source references
               </div>
@@ -82,7 +84,7 @@ export default function HomePage() {
           </div>
 
           <div className="mobile-safe animate-fade-up animate-delay-2 relative min-w-0">
-            <div className="animate-float-panel w-full max-w-full rounded-[8px] border border-slate-200 bg-white/90 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur">
+            <div className="animate-float-panel w-full max-w-full rounded-[8px] border border-slate-200 bg-white/90 p-3 shadow-2xl shadow-slate-900/12 backdrop-blur dark:border-slate-700 dark:bg-slate-900/70">
               <div className="scan-line relative overflow-hidden rounded-[8px] border border-slate-200 bg-slate-950 p-4 text-white">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -130,7 +132,7 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div className="rounded-[8px] border border-white/10 bg-white p-4 text-slate-950">
+                    <div className="rounded-[8px] border border-white/10 bg-white p-4 text-slate-950 dark:bg-slate-100">
                       <p className="text-sm font-semibold">Answer Policy</p>
                       <p className="mt-2 text-sm leading-6 text-slate-600">
                         The assistant provides grounded answers from the
@@ -145,13 +147,13 @@ export default function HomePage() {
               <div className="grid gap-3 pt-3 sm:grid-cols-3">
                 {["Upload", "Ask", "Reference"].map((label) => (
                   <div
-                    className="rounded-[8px] border border-slate-200 bg-slate-50 px-4 py-3"
+                    className="rounded-[8px] border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/60"
                     key={label}
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">
                       Step
                     </p>
-                    <p className="mt-1 text-sm font-semibold text-slate-900">
+                    <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
                       {label}
                     </p>
                   </div>

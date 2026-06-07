@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 
 type UploadStatus = {
+  id: string;
   chunkCount: number;
   fileName: string;
   status: string;
@@ -25,7 +26,7 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
     const file = inputRef.current?.files?.[0];
 
     if (!file) {
-      setError("Choose a valid document (.txt, .pdf, or .docx).");
+      setError("Choose a valid document (.txt, .md, .csv, .pdf, or .docx).");
       return;
     }
 
@@ -58,9 +59,9 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
   }
 
   return (
-    <section className="rounded-[8px] border border-slate-200 bg-white/90 p-5 shadow-sm shadow-slate-900/5 backdrop-blur">
+    <section className="rounded-[8px] border border-slate-200 bg-white/90 p-5 shadow-sm shadow-slate-900/5 backdrop-blur dark:border-slate-700 dark:bg-slate-900/60 dark:shadow-black/20">
       <div className="mb-5 flex items-start gap-3">
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[8px] bg-blue-50 text-blue-700 ring-1 ring-blue-100">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[8px] bg-blue-50 text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-400/20">
           <svg
             aria-hidden="true"
             className="h-5 w-5"
@@ -77,21 +78,21 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
           </svg>
         </span>
         <div>
-          <h2 className="text-base font-semibold text-slate-950">
+          <h2 className="text-base font-semibold text-slate-950 dark:text-white">
             Upload Document
           </h2>
-          <p className="mt-1 text-sm leading-6 text-slate-600">
-            Upload a .txt, .pdf, or .docx file
+          <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
+            Upload a .txt, .md, .csv, .pdf, or .docx file
           </p>
         </div>
       </div>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <label className="group relative block cursor-pointer overflow-hidden rounded-[8px] border border-dashed border-slate-300 bg-slate-50 p-5 transition hover:border-blue-300 hover:bg-blue-50/40">
+        <label className="group relative block cursor-pointer overflow-hidden rounded-[8px] border border-dashed border-slate-300 bg-slate-50 p-5 transition hover:border-blue-300 hover:bg-blue-50/40 dark:border-slate-600 dark:bg-slate-800/40 dark:hover:border-blue-400/40 dark:hover:bg-blue-500/10">
           <input
             ref={inputRef}
             type="file"
-            accept=".txt,text/plain,.pdf,application/pdf,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            accept=".txt,text/plain,.md,text/markdown,.csv,text/csv,.pdf,application/pdf,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             className="sr-only"
             onChange={(event) =>
               setSelectedFileName(event.currentTarget.files?.[0]?.name ?? "")
@@ -100,14 +101,14 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
           <span className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 transition group-hover:opacity-100" />
           <span className="flex items-center justify-between gap-4">
             <span>
-              <span className="block text-sm font-semibold text-slate-900">
+              <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
                 {selectedFileName || "Choose a document"}
               </span>
-              <span className="mt-1 block text-sm text-slate-500">
+              <span className="mt-1 block text-sm text-slate-500 dark:text-slate-400">
                 The document is indexed for grounded answers.
               </span>
             </span>
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[8px] bg-white text-blue-700 shadow-sm ring-1 ring-slate-200 transition group-hover:-translate-y-0.5">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[8px] bg-white text-blue-700 shadow-sm ring-1 ring-slate-200 transition group-hover:-translate-y-0.5 dark:bg-slate-900 dark:text-blue-300 dark:ring-slate-700">
               <svg
                 aria-hidden="true"
                 className="h-4 w-4"
@@ -129,7 +130,7 @@ export function FileUpload({ onUploaded }: FileUploadProps) {
         <button
           type="submit"
           disabled={isUploading}
-          className="group inline-flex min-w-40 items-center justify-center gap-2 rounded-[8px] bg-slate-950 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/12 transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
+          className="group inline-flex min-w-40 items-center justify-center gap-2 rounded-[8px] bg-slate-950 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/12 transition hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400 dark:bg-blue-600 dark:hover:bg-blue-500 dark:disabled:bg-slate-700"
         >
           {isUploading ? (
             <span className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />

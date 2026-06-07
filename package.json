@@ -27,6 +27,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "@upstash/vector": "^1.2.3",
     "mammoth": "^1.12.0",
     "next": "^16.2.7",

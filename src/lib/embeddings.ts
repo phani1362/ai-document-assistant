@@ -19,33 +19,49 @@ export async function createQueryEmbedding(text: string) {
   return embedding;
 }
 
+export type ChatMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+
 type ChatCompletionParams = {
   systemPrompt: string;
   userPrompt: string;
+  history?: ChatMessage[];
 };
 
-export async function createChatCompletion({
-  systemPrompt,
-  userPrompt,
-}: ChatCompletionParams) {
+function buildMessages({ systemPrompt, userPrompt, history }: ChatCompletionParams) {
+  return [
+    { role: "system" as const, content: systemPrompt },
+    ...(history ?? []).map((message) => ({
+      role: message.role,
+      content: message.content,
+    })),
+    { role: "user" as const, content: userPrompt },
+  ];
+}
+
+export async function createChatCompletion(params: ChatCompletionParams) {
   const client = getOpenAIClient();
   const response = await client.chat.completions.create({
     model: DEFAULT_CHAT_MODEL,
     temperature: 0,
-    messages: [
-      {
-        role: "system",
-        content: systemPrompt,
-      },
-      {
-        role: "user",
-        content: userPrompt,
-      },
-    ],
+    messages: buildMessages(params),
   });
 
   return (
     response.choices[0]?.message.content?.trim() ??
     "I could not find that information in the uploaded document."
   );
+}
+
+export async function streamChatCompletion(params: ChatCompletionParams) {
+  const client = getOpenAIClient();
+
+  return client.chat.completions.create({
+    model: DEFAULT_CHAT_MODEL,
+    temperature: 0,
+    stream: true,
+    messages: buildMessages(params),
+  });
 }

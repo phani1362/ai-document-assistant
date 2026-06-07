@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #f7fafc;
   --foreground: #101828;
@@ -13,6 +15,21 @@
   --amber: #b45309;
   --success: #047857;
   --error: #c2410c;
+}
+
+.dark {
+  --background: #0b1120;
+  --foreground: #e2e8f0;
+  --surface: #161e2e;
+  --surface-muted: #1c2433;
+  --border: #2a3344;
+  --accent: #5b8cff;
+  --accent-strong: #9db8ff;
+  --accent-soft: #1d2a4a;
+  --teal: #2dd4bf;
+  --amber: #fbbf24;
+  --success: #34d399;
+  --error: #fb923c;
 }
 
 @theme inline {
@@ -38,6 +55,11 @@ body {
   overflow-x: hidden;
   background: linear-gradient(180deg, #f8fbff 0%, #eef4f8 46%, #f7fafc 100%);
   color: var(--foreground);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dark body {
+  background: linear-gradient(180deg, #0b1120 0%, #0f1626 46%, #0b1120 100%);
 }
 
 ::selection {
