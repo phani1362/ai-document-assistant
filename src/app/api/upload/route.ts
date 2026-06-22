@@ -53,14 +53,20 @@ export async function POST(request: Request) {
         text = (await file.text()).trim();
         chunks = chunkText(text);
       } else if (fileName.endsWith(".pdf")) {
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const { PDFParse } = await import("pdf-parse");
-        const parser = new PDFParse({ data: buffer });
-        const pdfData = await parser.getText();
-        await parser.destroy();
-        text = pdfData.text.trim();
+        // unpdf is serverless-friendly (no canvas/DOMMatrix deps), unlike
+        // pdf-parse/pdfjs which crashes on Vercel's Node runtime.
+        const { extractText, getDocumentProxy } = await import("unpdf");
+        const buffer = new Uint8Array(await file.arrayBuffer());
+        const pdf = await getDocumentProxy(buffer);
+        const { text: pageTexts } = await extractText(pdf, {
+          mergePages: false,
+        });
+        text = pageTexts.join("\n\n").trim();
         chunks = chunkPages(
-          pdfData.pages.map((page) => ({ page: page.num, text: page.text })),
+          pageTexts.map((pageText, pageIndex) => ({
+            page: pageIndex + 1,
+            text: pageText,
+          })),
         );
       } else if (fileName.endsWith(".docx")) {
         const buffer = Buffer.from(await file.arrayBuffer());
