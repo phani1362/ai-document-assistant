@@ -56,7 +56,7 @@ export default function HomePage() {
             </div>
             <div className="animate-fade-up animate-delay-3 mt-9 flex flex-wrap items-center gap-3">
               <Link
-                href="/login"
+                href="/app"
                 className="group relative isolate inline-flex items-center gap-2 overflow-hidden rounded-[8px] bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
                 <span className="absolute inset-y-0 left-0 -z-10 w-10 translate-x-[-120%] rotate-12 bg-white/25 transition duration-700 group-hover:translate-x-[340%]" />

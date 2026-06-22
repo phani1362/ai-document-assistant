@@ -1,14 +1,25 @@
-import { getOpenAIClient } from "@/lib/openai";
+import { getGeminiClient } from "@/lib/openai";
 
+// Free Gemini models. gemini-embedding-001 supports configurable output sizes;
+// we pin it to 1536 dims to match the Upstash Vector index dimension.
 const DEFAULT_EMBEDDING_MODEL =
-  process.env.OPENAI_EMBEDDING_MODEL ?? "text-embedding-3-small";
-const DEFAULT_CHAT_MODEL = process.env.OPENAI_CHAT_MODEL ?? "gpt-4.1-mini";
+  process.env.GEMINI_EMBEDDING_MODEL ??
+  process.env.OPENAI_EMBEDDING_MODEL ??
+  "gemini-embedding-001";
+const EMBEDDING_DIMENSIONS = Number(
+  process.env.GEMINI_EMBEDDING_DIMENSIONS ?? "1536",
+);
+const DEFAULT_CHAT_MODEL =
+  process.env.GEMINI_CHAT_MODEL ??
+  process.env.OPENAI_CHAT_MODEL ??
+  "gemini-2.5-flash";
 
 export async function createEmbeddings(texts: string[]) {
-  const client = getOpenAIClient();
+  const client = getGeminiClient();
   const response = await client.embeddings.create({
     model: DEFAULT_EMBEDDING_MODEL,
     input: texts,
+    dimensions: EMBEDDING_DIMENSIONS,
   });
 
   return response.data.map((item) => item.embedding);
@@ -42,7 +53,7 @@ function buildMessages({ systemPrompt, userPrompt, history }: ChatCompletionPara
 }
 
 export async function createChatCompletion(params: ChatCompletionParams) {
-  const client = getOpenAIClient();
+  const client = getGeminiClient();
   const response = await client.chat.completions.create({
     model: DEFAULT_CHAT_MODEL,
     temperature: 0,
@@ -56,7 +67,7 @@ export async function createChatCompletion(params: ChatCompletionParams) {
 }
 
 export async function streamChatCompletion(params: ChatCompletionParams) {
-  const client = getOpenAIClient();
+  const client = getGeminiClient();
 
   return client.chat.completions.create({
     model: DEFAULT_CHAT_MODEL,

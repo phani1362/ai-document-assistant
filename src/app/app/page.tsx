@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ChatWindow } from "@/components/ChatWindow";
-import { LogoutButton } from "@/components/LogoutButton";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function AppPage() {
@@ -44,7 +43,6 @@ export default function AppPage() {
           </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <LogoutButton />
           </div>
         </header>
 
