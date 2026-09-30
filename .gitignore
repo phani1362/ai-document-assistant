@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
-package-lock.json
 
 # Environment
+.env
 .env.local
 .env.*.local
 
@@ -35,3 +35,10 @@ coverage/
 # Documentation
 *.docx
 *.doc
+
+# Python
+__pycache__/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
