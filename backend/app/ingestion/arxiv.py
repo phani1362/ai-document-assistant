@@ -51,7 +51,7 @@ class ArxivPaper:
         return f"https://arxiv.org/abs/{self.arxiv_id}"
 
 
-class _Throttle:
+class Throttle:
     """Space out requests to one host, as arXiv's API terms require."""
 
     def __init__(self, delay: float) -> None:
@@ -95,7 +95,7 @@ def parse_feed(xml: str) -> list[ArxivPaper]:
 
 
 async def search(
-    client: httpx.AsyncClient, query: str, throttle: _Throttle
+    client: httpx.AsyncClient, query: str, throttle: Throttle
 ) -> AsyncIterator[ArxivPaper]:
     start = 0
     while True:
@@ -119,7 +119,7 @@ async def search(
 
 
 async def fetch_html(
-    client: httpx.AsyncClient, arxiv_id: str, cache_dir: Path, throttle: _Throttle
+    client: httpx.AsyncClient, arxiv_id: str, cache_dir: Path, throttle: Throttle
 ) -> str | None:
     cached = cache_dir / f"{arxiv_id.replace('/', '_')}.html"
     if await asyncio.to_thread(cached.exists):
@@ -138,7 +138,7 @@ async def load_arxiv(query: str, max_papers: int) -> int:
     settings = get_settings()
     cache_dir = Path(settings.arxiv_cache_dir)
     await asyncio.to_thread(cache_dir.mkdir, parents=True, exist_ok=True)
-    throttle = _Throttle(settings.arxiv_request_delay_seconds)
+    throttle = Throttle(settings.arxiv_request_delay_seconds)
     sessionmaker = get_sessionmaker()
     queued = skipped = 0
 

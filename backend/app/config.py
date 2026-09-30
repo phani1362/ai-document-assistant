@@ -16,8 +16,10 @@ class Settings(BaseSettings):
 
     # LLMs. Gemini is the default because it has a free tier; every model is swappable.
     gemini_api_key: str | None = None
-    chat_model: str = "gemini-2.5-flash"
-    fast_model: str = "gemini-2.5-flash-lite"
+    chat_model: str = "gemini-3.5-flash"
+    fast_model: str = "gemini-3.5-flash-lite"
+    # Client-side cap per model, to stay under free-tier requests-per-minute quotas.
+    llm_rpm: int = 10
 
     # Embeddings. "local" runs an open model on CPU: free and unmetered, which matters
     # for bulk ingestion (Gemini's free tier allows ~100 texts per minute plus a daily cap).
@@ -33,6 +35,11 @@ class Settings(BaseSettings):
     child_chunk_tokens: int = 350
     child_overlap_tokens: int = 50
     parent_chunk_tokens: int = 1200
+
+    # Retrieval.
+    retrieval_top_k: int = 5
+    # HNSW candidates examined per query; higher = better recall, slower.
+    hnsw_ef_search: int = 100
 
     # Ingestion worker.
     worker_poll_seconds: float = 2.0
