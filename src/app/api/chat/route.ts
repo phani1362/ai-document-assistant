@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
 import { toClientError } from "@/lib/api-errors";
 import {
-  createQueryEmbedding,
   streamChatCompletion,
   type ChatMessage,
 } from "@/lib/embeddings";
+import { runAgenticRetrieval } from "@/lib/agentic-rag";
 import { checkChatRateLimit, getRequestIdentifier } from "@/lib/rate-limit";
-import { retrieveRelevantChunks } from "@/lib/retrieval";
 import { hasDocument } from "@/lib/store";
 import { logUsageEvent } from "@/lib/usage";
 
 const SYSTEM_PROMPT =
-  "You are a document question-answering assistant. Answer only from the provided context. Do not use outside knowledge. If the answer is not in the context, clearly say you could not find it in the uploaded document. Prior conversation turns are provided for follow-up context only — keep grounding every answer in the supplied document context.";
+  "You are a document question-answering assistant. Answer only from the provided sources and do not use outside knowledge. Cite factual claims inline with [Source N]. If the evidence is incomplete or conflicting, say so explicitly. If the answer is absent, clearly say you could not find it in the uploaded documents. Prior turns help resolve follow-ups but are not evidence.";
 
 const MAX_HISTORY_TURNS = 6;
 
@@ -67,41 +66,35 @@ export async function POST(request: Request) {
       );
     }
 
-    const queryEmbedding = await createQueryEmbedding(question);
-    const topChunks = await retrieveRelevantChunks(queryEmbedding, 3, documentId);
-
-    const context = topChunks
-      .map((chunk, index) => {
-        const location = chunk.page
-          ? `page ${chunk.page}`
-          : `chunk ${chunk.index + 1}`;
-        return `Source ${index + 1} (${chunk.fileName}, ${location}):\n${chunk.text}`;
-      })
-      .join("\n\n");
-
-    const completionStream = await streamChatCompletion({
-      systemPrompt: SYSTEM_PROMPT,
-      userPrompt: `Question:\n${question}\n\nContext:\n${context}`,
-      history,
-    });
-
-    const sources = topChunks.map((chunk) => ({
-      id: chunk.id,
-      index: chunk.index,
-      text: chunk.text,
-      score: chunk.score,
-      documentId: chunk.documentId,
-      fileName: chunk.fileName,
-      page: chunk.page,
-    }));
-
     const encoder = new TextEncoder();
 
     const stream = new ReadableStream<Uint8Array>({
       async start(controller) {
-        controller.enqueue(encoder.encode(sseEvent("sources", { sources })));
-
         try {
+          const { chunks: topChunks, answerPrompt } =
+            await runAgenticRetrieval({
+              question,
+              history,
+              documentId,
+              onStep: (step) =>
+                controller.enqueue(encoder.encode(sseEvent("agent", step))),
+            });
+          const sources = topChunks.map((chunk) => ({
+            id: chunk.id,
+            index: chunk.index,
+            text: chunk.text,
+            score: chunk.score,
+            documentId: chunk.documentId,
+            fileName: chunk.fileName,
+            page: chunk.page,
+          }));
+          controller.enqueue(encoder.encode(sseEvent("sources", { sources })));
+          const completionStream = await streamChatCompletion({
+            systemPrompt: SYSTEM_PROMPT,
+            userPrompt: answerPrompt,
+            history,
+          });
+
           for await (const chunk of completionStream) {
             const delta = chunk.choices[0]?.delta?.content;
 

@@ -5,13 +5,18 @@
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://vercel.com)
 
-An intelligent document assistant powered by **RAG (Retrieval-Augmented Generation)** that enables users to upload documents and ask natural language questions with AI-powered answers backed by source context.
+An intelligent document assistant powered by **agentic RAG (Retrieval-Augmented Generation)** that plans searches, retrieves and grades evidence, corrects weak retrieval, and produces cited answers backed by source context.
 
 ## 🎯 Key Features
 
 - **Multi-format Support**: Upload `.txt`, `.pdf`, and `.docx` files
 - **Semantic Search**: OpenAI embeddings with cosine similarity for intelligent document retrieval
+- **Agentic Query Planning**: Resolves follow-ups and creates up to three standalone search views
+- **LangGraph Orchestration**: Typed state, named agents, conditional routing, and an explicit execution bound
+- **Multi-query Fusion**: Combines independent vector rankings with reciprocal-rank fusion (RRF)
+- **Corrective RAG**: Grades retrieved evidence and performs one targeted retry when context is weak
 - **Source Attribution**: Every answer includes direct references to relevant source chunks
+- **Observable Execution**: Streams planning, retrieval, grading, correction, and answering progress to the UI
 - **Context-Aware Responses**: Answers are grounded exclusively in document content—no hallucinations
 - **Password Protection**: Secure access with authentication
 - **Responsive Design**: Modern, mobile-friendly UI with Tailwind CSS
@@ -20,14 +25,21 @@ An intelligent document assistant powered by **RAG (Retrieval-Augmented Generati
 
 ## 🏗️ Architecture
 
-The application implements a robust RAG pipeline:
+The application implements a bounded agentic RAG pipeline:
 
 1. **Document Ingestion**: Parse and chunk uploaded documents intelligently
 2. **Embedding Generation**: Use OpenAI's embedding API to create semantic vectors
 3. **Vector Storage**: Persist embeddings using Upstash Vector database
-4. **Retrieval**: Find top-k most relevant chunks using cosine similarity
-5. **Generation**: Pass retrieved context to GPT for grounded answer generation
-6. **UI Rendering**: Display answers with highlighted source references
+4. **Planning**: Resolve conversational references and generate diverse standalone queries
+5. **Retrieval + Fusion**: Search each query and merge rankings with RRF
+6. **Evidence Grading**: Assess whether the retrieved context can support a faithful answer
+7. **Correction**: Run one focused retrieval retry when the grader identifies an evidence gap
+8. **Generation**: Stream a grounded answer with inline `[Source N]` citations
+9. **UI Rendering**: Display agent progress, the answer, and highlighted source references
+
+The workflow is implemented as a LangGraph `StateGraph` with five named nodes:
+`planner_agent → retrieval_agent → evidence_grader_agent → [corrective_retriever_agent] → answer_agent`.
+The grader conditionally selects the corrective branch, and the graph has a recursion limit as a final safety boundary.
 
 ## 🛠️ Tech Stack
 

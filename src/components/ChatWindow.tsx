@@ -32,6 +32,12 @@ type ChatMessage = {
   role: "user" | "assistant";
   content: string;
   sources?: Source[];
+  agentSteps?: AgentStep[];
+};
+
+type AgentStep = {
+  stage: string;
+  label: string;
 };
 
 type FeedbackVote = "up" | "down";
@@ -188,6 +194,12 @@ export function ChatWindow() {
           if (eventName === "sources") {
             const sources = payload.sources as Source[];
             updateAssistantMessage((message) => ({ ...message, sources }));
+          } else if (eventName === "agent") {
+            const step = payload as AgentStep;
+            updateAssistantMessage((message) => ({
+              ...message,
+              agentSteps: [...(message.agentSteps ?? []), step],
+            }));
           } else if (eventName === "delta") {
             setIsStreamingAnswer(true);
             const delta = payload.delta as string;
@@ -378,6 +390,11 @@ export function ChatWindow() {
                   >
                     {showSkeleton ? (
                       <div className="space-y-3 py-1">
+                        {message.agentSteps?.length ? (
+                          <p className="text-xs font-semibold text-blue-300">
+                            {message.agentSteps.at(-1)?.label}
+                          </p>
+                        ) : null}
                         <div className="h-3 w-11/12 animate-pulse rounded-full bg-white/12" />
                         <div className="h-3 w-9/12 animate-pulse rounded-full bg-white/12" />
                         <div className="h-3 w-10/12 animate-pulse rounded-full bg-white/12" />
