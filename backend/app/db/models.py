@@ -15,6 +15,7 @@ from sqlalchemy import (
     Text,
     UniqueConstraint,
     func,
+    text,
 )
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB, TSVECTOR, UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -53,6 +54,8 @@ class Document(Base):
     url: Mapped[str | None] = mapped_column(Text)
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     extra: Mapped[dict[str, Any]] = mapped_column(JSONB, default=dict)
+    # Normalized Markdown; the ingestion worker chunks this.
+    content: Mapped[str | None] = mapped_column(Text)
     content_hash: Mapped[str] = mapped_column(String(64), unique=True)
     status: Mapped[DocumentStatus] = mapped_column(
         Enum(
@@ -61,7 +64,9 @@ class Document(Base):
         default=DocumentStatus.QUEUED,
     )
     error: Mapped[str | None] = mapped_column(Text)
+    attempts: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     chunk_count: Mapped[int] = mapped_column(Integer, default=0)
+    embedding_model: Mapped[str | None] = mapped_column(String(128))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
@@ -73,6 +78,12 @@ class Document(Base):
 
     __table_args__ = (
         UniqueConstraint("source", "external_id", name="uq_documents_source_external"),
+        # The worker's claim query only scans the (small) set of pending documents.
+        Index(
+            "ix_documents_pending",
+            "created_at",
+            postgresql_where=text("status IN ('queued', 'processing')"),
+        ),
     )
 
 
