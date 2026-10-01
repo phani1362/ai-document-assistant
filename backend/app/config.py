@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     environment: str = "development"
     database_url: str = "postgresql+psycopg://rag:rag@localhost:5432/rag"
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
+    # Required by destructive endpoints (e.g. deleting documents); unset = disabled.
+    admin_token: str | None = None
 
     # LLMs. Swappable per provider; "chat" answers and judges, "fast" does cheap agent steps.
     llm_provider: Literal["openai", "gemini"] = "openai"

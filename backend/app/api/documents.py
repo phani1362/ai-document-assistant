@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict
 from sqlalchemy import delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.auth import require_admin
 from app.db.models import Document, DocumentStatus
 from app.db.session import get_session
 
@@ -71,7 +72,11 @@ async def get_document(document_id: uuid.UUID, session: Session) -> DocumentOut:
     return DocumentOut.model_validate(document)
 
 
-@router.delete("/{document_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete(
+    "/{document_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    dependencies=[Depends(require_admin)],
+)
 async def delete_document(document_id: uuid.UUID, session: Session) -> None:
     # Chunks are removed by the ON DELETE CASCADE foreign key.
     result = await session.execute(delete(Document).where(Document.id == document_id))

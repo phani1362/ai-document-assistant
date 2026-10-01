@@ -125,3 +125,16 @@ async def test_documents_endpoint_reports_status_counts(client: AsyncClient) -> 
     assert body["total"] == 3
     assert body["status_counts"] == {"ready": 2, "queued": 1}
     assert [item["title"] for item in body["items"]] == ["three", "two", "one"]
+
+
+async def test_delete_requires_admin_token(
+    client: AsyncClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    document = await _queue()
+    monkeypatch.setattr(get_settings(), "admin_token", "s3cret")
+
+    anonymous = await client.delete(f"/documents/{document.id}")
+    wrong = await client.delete(f"/documents/{document.id}", headers={"X-Admin-Token": "nope"})
+    admin = await client.delete(f"/documents/{document.id}", headers={"X-Admin-Token": "s3cret"})
+
+    assert (anonymous.status_code, wrong.status_code, admin.status_code) == (403, 403, 204)
