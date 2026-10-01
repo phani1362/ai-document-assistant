@@ -9,6 +9,12 @@ from app.db.session import get_session
 router = APIRouter(tags=["health"])
 
 
+@router.get("/ping")
+async def ping() -> dict[str, str]:
+    """Liveness only. Used by keep-alive pings so they don't wake the database."""
+    return {"status": "ok"}
+
+
 @router.get("/health")
 async def health(
     response: Response, session: Annotated[AsyncSession, Depends(get_session)]

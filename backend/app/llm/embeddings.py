@@ -4,6 +4,7 @@ import math
 from functools import lru_cache
 from typing import Protocol, cast
 
+import openai
 from google import genai
 from google.genai import errors, types
 from tenacity import (
@@ -15,6 +16,7 @@ from tenacity import (
 )
 
 from app.config import get_settings
+from app.llm.chat import is_retryable_llm_error, usage_tracker
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +66,42 @@ class LocalEmbedder:
         return [float(value) for value in vector]
 
 
+class OpenAIEmbedder:
+    """OpenAI embeddings, shortened to `dimensions` (the API returns them normalized)."""
+
+    def __init__(
+        self, client: openai.AsyncOpenAI, model: str, dimensions: int, batch_size: int
+    ) -> None:
+        self.name = f"openai:{model}:{dimensions}"
+        self._client = client
+        self._model = model
+        self._dimensions = dimensions
+        self._batch_size = batch_size
+
+    async def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        vectors: list[list[float]] = []
+        for start in range(0, len(texts), self._batch_size):
+            batch = texts[start : start + self._batch_size]
+            async for attempt in AsyncRetrying(
+                retry=retry_if_exception(is_retryable_llm_error),
+                wait=wait_random_exponential(multiplier=2, max=60),
+                stop=stop_after_attempt(6),
+                before_sleep=before_sleep_log(logger, logging.WARNING),
+                reraise=True,
+            ):
+                with attempt:
+                    response = await self._client.embeddings.create(
+                        model=self._model, input=batch, dimensions=self._dimensions
+                    )
+            usage_tracker.record(self._model, response.usage.prompt_tokens, 0)
+            vectors.extend(item.embedding for item in sorted(response.data, key=lambda d: d.index))
+        return vectors
+
+    async def embed_query(self, text: str) -> list[float]:
+        [vector] = await self.embed_documents([text])
+        return vector
+
+
 class GeminiEmbedder:
     def __init__(self, client: genai.Client, model: str, dimensions: int, batch_size: int) -> None:
         self.name = f"gemini:{model}:{dimensions}"
@@ -109,6 +147,15 @@ class GeminiEmbedder:
 @lru_cache
 def get_embedder() -> Embedder:
     settings = get_settings()
+    if settings.embedding_provider == "openai":
+        if not settings.openai_api_key:
+            raise RuntimeError("OPENAI_API_KEY is not set. Add it to backend/.env.")
+        return OpenAIEmbedder(
+            client=openai.AsyncOpenAI(api_key=settings.openai_api_key, max_retries=0),
+            model=settings.openai_embedding_model,
+            dimensions=settings.embedding_dimensions,
+            batch_size=256,
+        )
     if settings.embedding_provider == "local":
         return LocalEmbedder(
             model=settings.local_embedding_model,

@@ -27,9 +27,12 @@ class Settings(BaseSettings):
     # Hard stop for one process (e.g. an eval run) once estimated spend passes this.
     llm_budget_usd: float = 0.50
 
-    # Embeddings. "local" runs an open model on CPU: free and unmetered, which matters
-    # for bulk ingestion (Gemini's free tier allows ~100 texts per minute plus a daily cap).
-    embedding_provider: Literal["local", "gemini"] = "local"
+    # Embeddings. "openai" is fast and cheap (~$0.06 for the whole corpus) and keeps the
+    # server small enough for free hosting. "local" runs an open model on CPU (free,
+    # unmetered, but ~500 MB of RAM; install with `uv sync --extra local`). Gemini's free
+    # tier allows ~100 texts per minute plus a daily cap.
+    embedding_provider: Literal["openai", "local", "gemini"] = "openai"
+    openai_embedding_model: str = "text-embedding-3-small"
     local_embedding_model: str = "BAAI/bge-base-en-v1.5"
     gemini_embedding_model: str = "gemini-embedding-001"
     model_cache_dir: str = "data/models"

@@ -28,7 +28,7 @@ services:
       db:
         condition: service_healthy
 
-  # Ingestion worker. Opt-in (it loads an embedding model into RAM):
+  # Ingestion worker. Opt-in:
   #   docker compose --profile ingest up -d worker
   worker:
     build: ./backend
@@ -39,13 +39,9 @@ services:
         required: false
     environment:
       DATABASE_URL: postgresql+psycopg://rag:rag@db:5432/rag
-      MODEL_CACHE_DIR: /app/models
-    volumes:
-      - models:/app/models
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   pgdata:
-  models:

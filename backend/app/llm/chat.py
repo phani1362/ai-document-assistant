@@ -32,6 +32,7 @@ logger = logging.getLogger(__name__)
 # USD per 1M (input, output) tokens, standard tier (checked 2026-09-30). Used only for
 # the cost estimates printed by evals; check the provider's pricing page when adding one.
 PRICES: dict[str, tuple[float, float]] = {
+    "text-embedding-3-small": (0.02, 0.0),
     "gpt-5.4-mini": (0.75, 4.50),
     "gpt-5.4-nano": (0.20, 1.25),
     "gpt-4.1-mini": (0.40, 1.60),
@@ -89,7 +90,7 @@ class BudgetExceededError(RuntimeError):
     pass
 
 
-def _is_retryable(error: BaseException) -> bool:
+def is_retryable_llm_error(error: BaseException) -> bool:
     if isinstance(
         error, openai.RateLimitError | openai.APIConnectionError | openai.APITimeoutError
     ):
@@ -143,7 +144,7 @@ class LLM(ABC):
     ) -> str | T:
         """Generate text, or an instance of `schema` when one is given."""
         async for attempt in AsyncRetrying(
-            retry=retry_if_exception(_is_retryable),
+            retry=retry_if_exception(is_retryable_llm_error),
             wait=wait_random_exponential(multiplier=2, max=60),
             stop=stop_after_attempt(6),
             before_sleep=before_sleep_log(logger, logging.WARNING),
