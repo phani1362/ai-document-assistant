@@ -7,8 +7,10 @@ streamed to the UI as it happens.
 
 ```mermaid
 flowchart TD
-    Q([question + history]) --> R[Router<br/><i>gpt-4.1-nano</i>]
-    R -->|greeting / off-topic| C[Canned reply<br/><i>no further LLM spend</i>]
+    Q([question + history]) --> IG[Input guard<br/><i>regex: injection, PII</i>]
+    IG -->|attack| C
+    IG --> R[Router<br/><i>gpt-4.1-nano</i>]
+    R -->|greeting / off-topic / unsafe| C[Canned reply<br/><i>no further LLM spend</i>]
     R -->|multi-part| P[Planner<br/><i>gpt-4.1-nano</i>]
     R -->|research| S1
     P -->|Send x N, in parallel| S1[Retriever<br/>dense top-20 -> mini rerank -> top-5]
@@ -18,13 +20,17 @@ flowchart TD
     G -->|insufficient again| X[Abstain<br/>say what was found instead]
     G -->|sufficient| Y[Synthesizer<br/><i>gpt-4.1-mini</i><br/>sentences + source ids]
     Y --> V[Verifier<br/><i>gpt-4.1-mini</i><br/>drop unsupported sentences]
-    V --> F([answer + sources + verification stats])
+    V --> OG[Output guard<br/><i>prompt-leak check, PII redaction</i>]
+    X --> OG
+    C --> OG
+    OG --> F([answer + sources + verification stats])
 ```
 
 ## Why each agent exists
 
 | Agent | Problem it solves |
 |---|---|
+| **Input / output guards** | Block prompt injection and prompt leaks, redact PII; no LLM calls. See [guardrails.md](guardrails.md). |
 | **Router** | Resolves follow-ups ("what about its dataset?") into standalone questions; skips retrieval and LLM spend for greetings and off-topic requests. |
 | **Planner** | Comparison and multi-part questions need evidence from several places; one search for "compare X and Y" tends to return only X. Sub-questions are searched in parallel with LangGraph's `Send`. |
 | **Retriever** | Dense search + LLM reranker, chosen by evaluation ([retrieval.md](retrieval.md)). |

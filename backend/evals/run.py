@@ -102,6 +102,7 @@ async def _agents_answer(
         details={
             "route": result.route,
             "system_abstained": result.abstained,
+            "blocked": result.blocked,
             "corrective_searches": result.retries,
             "removed_sentences": result.removed_sentences,
             "steps": [f"{s['agent']}: {s['detail']}" for s in result.steps],

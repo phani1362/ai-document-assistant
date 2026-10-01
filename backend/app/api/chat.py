@@ -39,6 +39,7 @@ class Source(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     abstained: bool
+    blocked: bool
     route: str
     sources: list[Source]
     verified_sentences: int
@@ -51,6 +52,7 @@ def _response(result: AgentResult) -> ChatResponse:
     return ChatResponse(
         answer=result.answer,
         abstained=result.abstained,
+        blocked=result.blocked,
         route=result.route,
         sources=[
             Source(

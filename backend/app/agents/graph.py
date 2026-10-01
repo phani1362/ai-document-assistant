@@ -1,7 +1,7 @@
 """Multi-agent RAG as a LangGraph state machine.
 
-router -> [planner] -> retrieve (parallel per query) -> assemble -> grader
-    -> (corrective retrieve, once) -> synthesizer -> verifier -> END
+input_guard -> router -> [planner] -> retrieve (parallel per query) -> assemble -> grader
+    -> (corrective retrieve, once) -> synthesizer -> verifier -> output_guard -> END
 
 Each agent is one LLM call with a structured output, so every decision (route, evidence
 grade, per-sentence verification) is inspectable, testable, and streamed to the UI.
@@ -17,11 +17,19 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.types import Send
 
+from app.agents.guardrails import (
+    BLOCKED_REPLY,
+    check_input,
+    check_output,
+    format_untrusted_sources,
+    redact_history,
+)
 from app.agents.prompts import (
     GRADER_SYSTEM,
     PLANNER_SYSTEM,
     ROUTER_SYSTEM,
     SYNTHESIZER_SYSTEM,
+    SYSTEM_PROMPTS,
     VERIFIER_SYSTEM,
     DraftAnswer,
     EvidenceGrade,
@@ -30,7 +38,7 @@ from app.agents.prompts import (
     Verification,
 )
 from app.llm.chat import LLM
-from app.rag.baseline import ABSTAIN_MESSAGE, format_sources
+from app.rag.baseline import ABSTAIN_MESSAGE
 from app.retrieval.search import ContextPassage, RetrievedChunk
 
 MAX_CORRECTIVE_RETRIES = 1
@@ -56,6 +64,8 @@ class AgentDeps:
     load_passages: LoadPassages
     top_k: int = 5
     max_passages: int = 8
+    # Swappable so evals can measure what fencing retrieved text buys.
+    format_sources: Callable[[list[ContextPassage]], str] = format_untrusted_sources
 
 
 class Step(TypedDict):
@@ -79,6 +89,8 @@ class AgentState(TypedDict, total=False):
     abstained: bool
     verified_sentences: int
     removed_sentences: int
+    # True when a guardrail (input, router "unsafe", or output) refused the request.
+    blocked: bool
     steps: Annotated[list[Step], operator.add]
 
 
@@ -111,6 +123,20 @@ def _render(draft: DraftAnswer, keep: set[int], source_count: int) -> str:
 
 
 def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
+    async def input_guard(state: AgentState) -> dict[str, Any]:
+        guard = check_input(state["question"], state.get("history", []))
+        if guard.blocked:
+            return {
+                "route": "blocked",
+                "steps": _step("input_guard", "Blocked: " + ", ".join(guard.attacks)),
+            }
+        detail = "Redacted: " + ", ".join(guard.redacted) if guard.redacted else "Passed"
+        return {
+            "question": guard.text,
+            "history": redact_history(state.get("history", [])),
+            "steps": _step("input_guard", detail),
+        }
+
     async def router(state: AgentState) -> dict[str, Any]:
         history = "\n".join(f"{m['role']}: {m['content']}" for m in state.get("history", [])[-6:])
         decision = await deps.fast_llm.generate(
@@ -157,7 +183,7 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
     async def grader(state: AgentState) -> dict[str, Any]:
         grade = await deps.chat_llm.generate(
             f"Question: {state['standalone_question']}\n\n"
-            f"Sources:\n\n{format_sources(state['passages'])}",
+            f"Sources:\n\n{deps.format_sources(state['passages'])}",
             system=GRADER_SYSTEM,
             schema=EvidenceGrade,
         )
@@ -171,7 +197,7 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
 
     async def synthesizer(state: AgentState) -> dict[str, Any]:
         draft = await deps.chat_llm.generate(
-            f"Sources:\n\n{format_sources(state['passages'])}\n\n"
+            f"Sources:\n\n{deps.format_sources(state['passages'])}\n\n"
             f"Question: {state['standalone_question']}",
             system=SYNTHESIZER_SYSTEM,
             schema=DraftAnswer,
@@ -188,7 +214,7 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
             for number, sentence in enumerate(draft.sentences, start=1)
         )
         verification = await deps.chat_llm.generate(
-            f"Sources:\n\n{format_sources(passages)}\n\nAnswer sentences:\n{numbered}",
+            f"Sources:\n\n{deps.format_sources(passages)}\n\nAnswer sentences:\n{numbered}",
             system=VERIFIER_SYSTEM,
             schema=Verification,
         )
@@ -220,11 +246,37 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
         }
 
     async def canned(state: AgentState) -> dict[str, Any]:
-        reply = CHITCHAT_REPLY if state["route"] == "chitchat" else OUT_OF_SCOPE_REPLY
-        return {"answer": reply, "abstained": state["route"] == "out_of_scope", "passages": []}
+        route = state["route"]
+        blocked = route in ("blocked", "unsafe")
+        if blocked:
+            reply = BLOCKED_REPLY
+        else:
+            reply = CHITCHAT_REPLY if route == "chitchat" else OUT_OF_SCOPE_REPLY
+        return {
+            "answer": reply,
+            "abstained": route != "chitchat",
+            "blocked": blocked,
+            "passages": [],
+        }
+
+    async def output_guard(state: AgentState) -> dict[str, Any]:
+        guard = check_output(state["answer"], SYSTEM_PROMPTS)
+        if guard.blocked:
+            return {
+                "answer": guard.text,
+                "abstained": True,
+                "blocked": True,
+                "passages": [],
+                "steps": _step("output_guard", "Blocked: answer leaked the system prompt"),
+            }
+        detail = "Redacted: " + ", ".join(guard.redacted) if guard.redacted else "Passed"
+        return {"answer": guard.text, "steps": _step("output_guard", detail)}
+
+    def after_input_guard(state: AgentState) -> Literal["router", "canned"]:
+        return "canned" if state.get("route") == "blocked" else "router"
 
     def after_router(state: AgentState) -> Literal["planner", "canned"] | list[Send]:
-        if state["route"] in ("chitchat", "out_of_scope"):
+        if state["route"] in ("chitchat", "out_of_scope", "unsafe"):
             return "canned"
         if state["route"] == "decompose":
             return "planner"
@@ -247,6 +299,7 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
         return {**update, "retries": MAX_CORRECTIVE_RETRIES}
 
     graph = StateGraph(AgentState)
+    graph.add_node("input_guard", input_guard)
     graph.add_node("router", router)
     graph.add_node("planner", planner)
     # Retrieval nodes receive a RetrieveTask from Send(), not the full graph state.
@@ -262,8 +315,10 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
     graph.add_node("verifier", verifier)
     graph.add_node("abstain", abstain)
     graph.add_node("canned", canned)
+    graph.add_node("output_guard", output_guard)
 
-    graph.add_edge(START, "router")
+    graph.add_edge(START, "input_guard")
+    graph.add_conditional_edges("input_guard", after_input_guard, ["router", "canned"])
     graph.add_conditional_edges("router", after_router, ["planner", "canned", "retrieve"])
     graph.add_conditional_edges("planner", fan_out, ["retrieve"])
     graph.add_edge("retrieve", "assemble")
@@ -273,9 +328,11 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
         "grader", after_grade, ["synthesizer", "abstain", "corrective_retrieve"]
     )
     graph.add_edge("synthesizer", "verifier")
-    graph.add_edge("verifier", END)
-    graph.add_edge("abstain", END)
-    graph.add_edge("canned", END)
+    # Every path ends in the output guard, including canned replies.
+    graph.add_edge("verifier", "output_guard")
+    graph.add_edge("abstain", "output_guard")
+    graph.add_edge("canned", "output_guard")
+    graph.add_edge("output_guard", END)
     return graph.compile()
 
 
@@ -290,6 +347,7 @@ class AgentResult:
     verified_sentences: int = 0
     removed_sentences: int = 0
     retries: int = 0
+    blocked: bool = False
     extra: dict[str, Any] = field(default_factory=dict)
 
 
@@ -304,6 +362,7 @@ def _result(state: dict[str, Any]) -> AgentResult:
         verified_sentences=state.get("verified_sentences", 0),
         removed_sentences=state.get("removed_sentences", 0),
         retries=state.get("retries", 0),
+        blocked=state.get("blocked", False),
     )
 
 

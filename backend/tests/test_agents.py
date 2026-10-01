@@ -138,12 +138,14 @@ async def test_answers_and_verifier_removes_unsupported_sentences() -> None:
     assert (result.verified_sentences, result.removed_sentences) == (1, 1)
     assert retrieval.queries == ["What did X find?"]
     assert [step["agent"] for step in result.steps] == [
+        "input_guard",
         "router",
         "retriever",
         "assembler",
         "grader",
         "synthesizer",
         "verifier",
+        "output_guard",
     ]
 
 
@@ -235,7 +237,8 @@ async def test_stream_yields_steps_then_result() -> None:
 
     events = [event async for event in stream_agents(graph, "Best pizza in Rome?")]
 
-    assert events[0] == {"agent": "router", "detail": "Route: out_of_scope"}
+    assert events[0] == {"agent": "input_guard", "detail": "Passed"}
+    assert events[1] == {"agent": "router", "detail": "Route: out_of_scope"}
     assert isinstance(events[-1], AgentResult)
     assert events[-1].abstained
 
