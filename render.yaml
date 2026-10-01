@@ -6,7 +6,7 @@ services:
     name: rag-backend
     runtime: docker
     plan: free
-    region: oregon
+    region: virginia  # same AWS region as the Neon database (us-east-1)
     rootDir: backend
     dockerfilePath: ./Dockerfile
     healthCheckPath: /ping
