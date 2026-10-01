@@ -3,6 +3,7 @@ import logging
 from collections.abc import AsyncIterator
 from typing import Annotated, Any, Literal
 
+import openai
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -10,6 +11,7 @@ from pydantic import BaseModel, Field
 from app.agents.graph import AgentResult, run_agents, stream_agents
 from app.agents.service import get_agent_graph
 from app.api.limits import guard_chat
+from app.llm.chat import BudgetExceededError
 
 logger = logging.getLogger(__name__)
 router = APIRouter(tags=["chat"], dependencies=[Depends(guard_chat)])
@@ -79,6 +81,17 @@ async def ask(request: ChatRequest) -> ChatResponse:
     return _response(result)
 
 
+def _user_message(error: Exception) -> str:
+    """A safe, specific message for the UI. Never includes exception details."""
+    if isinstance(error, BudgetExceededError):
+        return "The demo's daily LLM budget is used up. Please try again tomorrow."
+    if isinstance(error, openai.RateLimitError):
+        return "The language model is rate limited right now. Please try again shortly."
+    if isinstance(error, openai.APIStatusError | openai.APIConnectionError):
+        return "The language model service is unavailable right now. Please try again."
+    return "Something went wrong answering that. Please try again."
+
+
 def _sse(event: str, data: Any) -> str:
     return f"event: {event}\ndata: {json.dumps(data)}\n\n"
 
@@ -100,9 +113,9 @@ async def chat(request: ChatRequest) -> StreamingResponse:
                     yield _sse("answer", _response(event).model_dump())
                 else:
                     yield _sse("step", event)
-        except Exception:
+        except Exception as error:
             logger.exception("Chat failed")
-            yield _sse("error", {"error": "Something went wrong answering that. Try again."})
+            yield _sse("error", {"error": _user_message(error), "type": type(error).__name__})
 
     return StreamingResponse(
         events(),
