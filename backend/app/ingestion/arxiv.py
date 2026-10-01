@@ -20,6 +20,13 @@ from pathlib import Path
 import httpx
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
+from tenacity import (
+    AsyncRetrying,
+    before_sleep_log,
+    retry_if_exception,
+    stop_after_attempt,
+    wait_random_exponential,
+)
 
 from app.config import get_settings
 from app.db.models import Document, DocumentStatus
@@ -94,22 +101,46 @@ def parse_feed(xml: str) -> list[ArxivPaper]:
     return papers
 
 
+def _is_transient(error: BaseException) -> bool:
+    if isinstance(error, httpx.HTTPStatusError):
+        return error.response.status_code in (429, 500, 502, 503, 504)
+    return isinstance(error, httpx.TransportError)
+
+
+async def _get(
+    client: httpx.AsyncClient, url: str, throttle: Throttle, **params: str | int
+) -> httpx.Response:
+    """GET with arXiv's request spacing, retrying rate limits and transient failures."""
+    async for attempt in AsyncRetrying(
+        retry=retry_if_exception(_is_transient),
+        wait=wait_random_exponential(multiplier=5, max=120),
+        stop=stop_after_attempt(6),
+        before_sleep=before_sleep_log(logger, logging.WARNING),
+        reraise=True,
+    ):
+        with attempt:
+            await throttle.wait()
+            response = await client.get(url, params=params)
+            if response.status_code != 404:
+                response.raise_for_status()
+            return response
+    raise AssertionError("unreachable")
+
+
 async def search(
     client: httpx.AsyncClient, query: str, throttle: Throttle
 ) -> AsyncIterator[ArxivPaper]:
     start = 0
     while True:
-        await throttle.wait()
-        response = await client.get(
+        response = await _get(
+            client,
             API_URL,
-            params={
-                "search_query": query,
-                "start": start,
-                "max_results": _PAGE_SIZE,
-                "sortBy": "relevance",
-            },
+            throttle,
+            search_query=query,
+            start=start,
+            max_results=_PAGE_SIZE,
+            sortBy="relevance",
         )
-        response.raise_for_status()
         papers = parse_feed(response.text)
         if not papers:
             return
@@ -124,11 +155,9 @@ async def fetch_html(
     cached = cache_dir / f"{arxiv_id.replace('/', '_')}.html"
     if await asyncio.to_thread(cached.exists):
         return await asyncio.to_thread(cached.read_text)
-    await throttle.wait()
-    response = await client.get(HTML_URL.format(arxiv_id=arxiv_id))
+    response = await _get(client, HTML_URL.format(arxiv_id=arxiv_id), throttle)
     if response.status_code == 404:
         return None
-    response.raise_for_status()
     await asyncio.to_thread(cached.write_text, response.text)
     return response.text
 

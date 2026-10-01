@@ -29,9 +29,11 @@ from app.config import get_settings
 
 logger = logging.getLogger(__name__)
 
-# USD per 1M (input, output) tokens. Used only for the cost estimates printed by evals;
-# check the provider's pricing page when adding a model.
+# USD per 1M (input, output) tokens, standard tier (checked 2026-09-30). Used only for
+# the cost estimates printed by evals; check the provider's pricing page when adding one.
 PRICES: dict[str, tuple[float, float]] = {
+    "gpt-5.4-mini": (0.75, 4.50),
+    "gpt-5.4-nano": (0.20, 1.25),
     "gpt-4.1-mini": (0.40, 1.60),
     "gpt-4.1-nano": (0.10, 0.40),
     "gpt-4o-mini": (0.15, 0.60),

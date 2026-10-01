@@ -83,10 +83,11 @@ async def _sample_passages(count: int, seed: str) -> list[tuple[Chunk, Document]
 
 async def _answerable(llm: LLM, count: int, seed: str) -> list[EvalItem]:
     items: list[EvalItem] = []
-    passages = await _sample_passages(count, seed)
-    if len(passages) < count:
-        logger.warning("Only %s ready documents; generating %s questions", *[len(passages)] * 2)
+    # Oversample: some passages are unusable or yield non-verbatim evidence (~15%).
+    passages = await _sample_passages(count * 3 // 2, seed)
     for chunk, document in passages:
+        if len(items) >= count:
+            break
         generated = await llm.generate(
             f"Paper: {document.title}\nSection: {chunk.section_path}\n\nPassage:\n{chunk.text}",
             system=QUESTION_SYSTEM,
@@ -111,6 +112,8 @@ async def _answerable(llm: LLM, count: int, seed: str) -> list[EvalItem]:
             )
         )
         logger.info("Generated %s: %s", items[-1].id, generated.question)
+    if len(items) < count:
+        logger.warning("Only %s of %s answerable questions; index more papers", len(items), count)
     return items
 
 
@@ -130,9 +133,9 @@ async def _papers_outside_corpus(count: int) -> list[ArxivPaper]:
     return papers
 
 
-async def _unanswerable(llm: LLM, count: int) -> list[EvalItem]:
+async def _unanswerable(llm: LLM, papers: list[ArxivPaper]) -> list[EvalItem]:
     items: list[EvalItem] = []
-    for paper in await _papers_outside_corpus(count):
+    for paper in papers:
         generated = await llm.generate(
             f"Title: {paper.title}\n\nAbstract:\n{paper.abstract}",
             system=UNANSWERABLE_SYSTEM,
@@ -155,8 +158,10 @@ async def _unanswerable(llm: LLM, count: int) -> list[EvalItem]:
 
 
 async def generate(answerable: int, unanswerable: int, seed: str) -> list[EvalItem]:
+    # Fetch from arXiv first: it is free, and a failure there should not waste LLM calls.
+    outside = await _papers_outside_corpus(unanswerable) if unanswerable else []
     llm = get_llm("chat")
-    return await _answerable(llm, answerable, seed) + await _unanswerable(llm, unanswerable)
+    return await _answerable(llm, answerable, seed) + await _unanswerable(llm, outside)
 
 
 def main() -> None:
