@@ -9,6 +9,7 @@ import threading
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
+from datetime import UTC, date, datetime
 from functools import lru_cache
 from typing import Literal, overload
 
@@ -59,7 +60,16 @@ class ModelUsage:
 @dataclass
 class UsageTracker:
     by_model: dict[str, ModelUsage] = field(default_factory=dict)
+    day: date = field(default_factory=lambda: datetime.now(UTC).date())
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
+
+    def reset_if_new_day(self) -> None:
+        """Long-running servers budget per UTC day; call before each request."""
+        today = datetime.now(UTC).date()
+        with self._lock:
+            if today != self.day:
+                self.by_model.clear()
+                self.day = today
 
     def record(self, model: str, input_tokens: int, output_tokens: int) -> None:
         with self._lock:

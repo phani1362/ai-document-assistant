@@ -24,8 +24,12 @@ class Settings(BaseSettings):
     fast_model: str = "gpt-4.1-nano"
     # Client-side requests-per-minute cap per model (Gemini's free tier needs ~5).
     llm_rpm: int = 60
-    # Hard stop for one process (e.g. an eval run) once estimated spend passes this.
+    # Hard stop once estimated spend passes this: per process for scripts (e.g. an eval
+    # run), per UTC day for the API server.
     llm_budget_usd: float = 0.50
+    # Public /chat limits per client IP.
+    chat_per_minute: int = 6
+    chat_per_day: int = 40
 
     # Embeddings. "openai" is fast and cheap (~$0.06 for the whole corpus) and keeps the
     # server small enough for free hosting. "local" runs an open model on CPU (free,

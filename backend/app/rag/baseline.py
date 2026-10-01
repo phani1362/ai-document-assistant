@@ -3,7 +3,8 @@
 This is the reference point the evaluation compares every later pipeline against.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -27,6 +28,8 @@ class RagResult:
     answer: str
     passages: list[ContextPassage]
     retrieved: list[RetrievedChunk]
+    # Pipeline-specific diagnostics recorded by evals (e.g. agent route, retries).
+    details: dict[str, Any] = field(default_factory=dict)
 
 
 def format_sources(passages: list[ContextPassage]) -> str:

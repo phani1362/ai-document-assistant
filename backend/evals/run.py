@@ -17,6 +17,8 @@ from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.agents.graph import run_agents
+from app.agents.service import get_agent_graph
 from app.config import get_settings
 from app.db.session import get_sessionmaker
 from app.llm.chat import LLM, get_llm, usage_tracker
@@ -47,8 +49,9 @@ Answer = Callable[[AsyncSession, Embedder, LLM, str, list[RetrievedChunk]], Awai
 
 @dataclass(frozen=True)
 class Pipeline:
-    retrieve: Retrieve
     answer: Answer
+    # None = the pipeline retrieves inside `answer` (agents); metrics use what it fetched.
+    retrieve: Retrieve | None = None
 
 
 async def _baseline_answer(
@@ -84,6 +87,28 @@ async def _dense_rerank(
     return await rerank(get_llm(settings.rerank_llm), question, candidates, k)
 
 
+async def _agents_answer(
+    session: AsyncSession,
+    embedder: Embedder,
+    llm: LLM,
+    question: str,
+    retrieved: list[RetrievedChunk],
+) -> RagResult:
+    result = await run_agents(get_agent_graph(), question)
+    return RagResult(
+        result.answer,
+        result.passages,
+        result.retrieved,
+        details={
+            "route": result.route,
+            "system_abstained": result.abstained,
+            "corrective_searches": result.retries,
+            "removed_sentences": result.removed_sentences,
+            "steps": [f"{s['agent']}: {s['detail']}" for s in result.steps],
+        },
+    )
+
+
 # Each variant changes only retrieval; answering is identical, so differences in answer
 # metrics come from what the LLM was shown.
 PIPELINES: dict[str, Pipeline] = {
@@ -94,7 +119,26 @@ PIPELINES: dict[str, Pipeline] = {
     "dense-rerank": Pipeline(retrieve=_dense_rerank, answer=_baseline_answer),
     # Whatever app.retrieval.pipeline is configured to do (the production setting).
     "app": Pipeline(retrieve=retrieve, answer=_baseline_answer),
+    # The multi-agent graph: retrieval, grading, and verification happen inside it.
+    "agents": Pipeline(answer=_agents_answer),
 }
+
+
+def _record_retrieval(
+    record: dict[str, Any], item: EvalItem, retrieved: list[RetrievedChunk]
+) -> None:
+    record["retrieved"] = [
+        {"external_id": c.external_id, "section": c.section_path, "score": round(c.score, 4)}
+        for c in retrieved
+    ]
+    if item.answerable:
+        record["rank"] = first_relevant_rank([c.text for c in retrieved], item.evidence)
+        doc_ids = [c.external_id for c in retrieved]
+        record["doc_rank"] = (
+            doc_ids.index(item.source_external_id) + 1
+            if item.source_external_id in doc_ids
+            else None
+        )
 
 
 async def evaluate_item(
@@ -108,26 +152,21 @@ async def evaluate_item(
     record: dict[str, Any] = {"id": item.id, "kind": item.kind, "question": item.question}
     async with get_sessionmaker()() as session:
         started = time.perf_counter()
-        retrieved = await pipeline.retrieve(session, embedder, item.question, k)
-        record["retrieval_seconds"] = round(time.perf_counter() - started, 3)
-        record["retrieved"] = [
-            {"external_id": c.external_id, "section": c.section_path, "score": round(c.score, 4)}
-            for c in retrieved
-        ]
-        if item.answerable:
-            rank = first_relevant_rank([c.text for c in retrieved], item.evidence)
-            doc_ids = [c.external_id for c in retrieved]
-            record["rank"] = rank
-            record["doc_rank"] = (
-                doc_ids.index(item.source_external_id) + 1
-                if item.source_external_id in doc_ids
-                else None
-            )
-
-        if llm is None or judge is None:
-            return record
-        result = await pipeline.answer(session, embedder, llm, item.question, retrieved)
+        if pipeline.retrieve is not None:
+            retrieved = await pipeline.retrieve(session, embedder, item.question, k)
+            record["retrieval_seconds"] = round(time.perf_counter() - started, 3)
+            _record_retrieval(record, item, retrieved)
+            if llm is None or judge is None:
+                return record
+            result = await pipeline.answer(session, embedder, llm, item.question, retrieved)
+        else:
+            if llm is None or judge is None:
+                raise SystemExit("This pipeline retrieves while answering; drop --retrieval-only")
+            result = await pipeline.answer(session, embedder, llm, item.question, [])
+            record["retrieval_seconds"] = None
+            _record_retrieval(record, item, result.retrieved)
     record["total_seconds"] = round(time.perf_counter() - started, 3)
+    record.update(result.details)
     record["answer"] = result.answer
     record["sources"] = len(result.passages)
     record["context_has_evidence"] = item.answerable and any(
@@ -165,7 +204,9 @@ def summarize(records: list[dict[str, Any]], k: int) -> dict[str, Any]:
             f"hit@{k}": mean([hit_at_k(rank, k) for rank in ranks]),
             f"mrr@{k}": mean([reciprocal_rank(rank) for rank in ranks]),
             "paper_hit@5": mean([hit_at_k(r["doc_rank"], 5) for r in answerable]),
-            "p50_seconds": percentile([r["retrieval_seconds"] for r in records], 50),
+            "p50_seconds": percentile(
+                [r["retrieval_seconds"] for r in records if r["retrieval_seconds"] is not None], 50
+            ),
         },
     }
     if records and all("correctness" in r for r in records):

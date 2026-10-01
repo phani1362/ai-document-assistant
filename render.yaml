@@ -24,5 +24,8 @@ services:
         value: openai
       - key: ENVIRONMENT
         value: production
+      # Daily cap on estimated LLM spend for the public demo (resets at 00:00 UTC).
+      - key: LLM_BUDGET_USD
+        value: "0.20"
       - key: CORS_ORIGINS
         value: '["https://aidocumentassistant.vercel.app"]'
