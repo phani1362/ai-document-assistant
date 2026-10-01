@@ -35,3 +35,12 @@ async def test_chat_rejects_empty_and_oversized_questions(client: AsyncClient) -
     huge = await client.post("/ask", json={"question": "x" * 1001})
 
     assert (empty.status_code, huge.status_code) == (422, 422)
+
+
+def test_settings_strip_whitespace_and_quotes_from_secrets() -> None:
+    from app.config import Settings
+
+    settings = Settings(openai_api_key=' "sk-test"\n', admin_token="token\n")
+
+    assert settings.openai_api_key == "sk-test"
+    assert settings.admin_token == "token"

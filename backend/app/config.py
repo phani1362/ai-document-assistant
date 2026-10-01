@@ -1,7 +1,7 @@
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -68,6 +68,16 @@ class Settings(BaseSettings):
     # arXiv asks bulk clients to wait 3 seconds between requests.
     arxiv_request_delay_seconds: float = 3.0
     arxiv_cache_dir: str = "data/arxiv"
+
+    @field_validator(
+        "openai_api_key", "gemini_api_key", "admin_token", "database_url", mode="before"
+    )
+    @classmethod
+    def _strip_secret(cls, value: object) -> object:
+        # Secrets pasted into dashboards often carry a trailing newline or quotes; a
+        # newline in an Authorization header makes every API call fail as a
+        # "connection error", which is very hard to diagnose.
+        return value.strip().strip("\"'") if isinstance(value, str) else value
 
 
 @lru_cache
