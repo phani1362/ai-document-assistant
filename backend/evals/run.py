@@ -19,7 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import get_settings
 from app.db.session import get_sessionmaker
-from app.llm.chat import LLM, get_llm
+from app.llm.chat import LLM, get_llm, usage_tracker
 from app.llm.embeddings import Embedder, get_embedder
 from app.rag.baseline import RagResult, answer_baseline, format_sources
 from app.retrieval.search import RetrievedChunk, dense_search
@@ -167,6 +167,16 @@ def to_markdown(name: str, summary: dict[str, Any], config: dict[str, Any]) -> s
         if section in summary:
             lines += ["", f"## {section.title()}", "", "| Metric | Value |", "|---|---|"]
             lines += [f"| {metric} | {value} |" for metric, value in summary[section].items()]
+    usage = summary.get("usage", {})
+    if usage.get("models"):
+        lines += ["", "## LLM usage", "", "| Model | Calls | Input tok | Output tok | Cost USD |"]
+        lines += ["|---|---|---|---|---|"]
+        lines += [
+            f"| {model} | {u['calls']} | {u['input_tokens']} | {u['output_tokens']} "
+            f"| {u['cost_usd'] if u['cost_usd'] is None else round(u['cost_usd'], 4)} |"
+            for model, u in usage["models"].items()
+        ]
+        lines += ["", f"Total cost: ${usage['total_cost_usd']}"]
     return "\n".join(lines) + "\n"
 
 
@@ -197,6 +207,7 @@ async def run(
         ],
     }
     summary = summarize(records, k)
+    summary["usage"] = usage_tracker.summary()
     stamp = datetime.now(UTC).strftime("%Y%m%d-%H%M")
     name = f"{stamp}-{pipeline_name}{'-retrieval' if retrieval_only else ''}"
     RESULTS_DIR.mkdir(exist_ok=True)

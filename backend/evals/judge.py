@@ -4,7 +4,7 @@ Faithfulness is judged claim by claim against the sources the pipeline actually 
 so it measures grounding, not whether the model happens to know the answer.
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from app.llm.chat import LLM
 
@@ -17,8 +17,15 @@ class ClaimVerdict(BaseModel):
 class Judgement(BaseModel):
     abstained: bool = Field(description="The answer declines to answer / says it is not found")
     claims: list[ClaimVerdict] = Field(description="Each factual claim in the answer, judged")
-    correctness: int = Field(ge=1, le=5, description="Agreement with the reference answer")
+    correctness: int = Field(description="1-5 agreement with the reference answer")
     reasoning: str
+
+    # Range checked here rather than in the JSON schema: not every provider's
+    # structured-output mode supports minimum/maximum.
+    @field_validator("correctness")
+    @classmethod
+    def _in_range(cls, value: int) -> int:
+        return min(5, max(1, value))
 
 
 JUDGE_SYSTEM = """You are a strict evaluator of a question-answering system over research papers.

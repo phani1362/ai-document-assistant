@@ -14,12 +14,16 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://rag:rag@localhost:5432/rag"
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
 
-    # LLMs. Gemini is the default because it has a free tier; every model is swappable.
+    # LLMs. Swappable per provider; "chat" answers and judges, "fast" does cheap agent steps.
+    llm_provider: Literal["openai", "gemini"] = "openai"
+    openai_api_key: str | None = None
     gemini_api_key: str | None = None
-    chat_model: str = "gemini-3.5-flash"
-    fast_model: str = "gemini-3.5-flash-lite"
-    # Client-side cap per model, to stay under free-tier requests-per-minute quotas.
-    llm_rpm: int = 10
+    chat_model: str = "gpt-4.1-mini"
+    fast_model: str = "gpt-4.1-nano"
+    # Client-side requests-per-minute cap per model (Gemini's free tier needs ~5).
+    llm_rpm: int = 60
+    # Hard stop for one process (e.g. an eval run) once estimated spend passes this.
+    llm_budget_usd: float = 0.50
 
     # Embeddings. "local" runs an open model on CPU: free and unmetered, which matters
     # for bulk ingestion (Gemini's free tier allows ~100 texts per minute plus a daily cap).

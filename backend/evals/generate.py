@@ -21,7 +21,7 @@ from app.config import get_settings
 from app.db.models import Chunk, ChunkLevel, Document, DocumentStatus
 from app.db.session import get_sessionmaker
 from app.ingestion.arxiv import DEFAULT_QUERY, USER_AGENT, ArxivPaper, Throttle, search
-from app.llm.chat import LLM, get_llm
+from app.llm.chat import LLM, get_llm, usage_tracker
 from evals.dataset import DEFAULT_DATASET, EvalItem, save_dataset
 from evals.metrics import contains_evidence
 
@@ -171,6 +171,7 @@ def main() -> None:
     items = asyncio.run(generate(args.answerable, args.unanswerable, args.seed))
     save_dataset(items, Path(args.out))
     logger.info("Wrote %s items to %s", len(items), args.out)
+    logger.info("LLM usage: %s", usage_tracker.summary())
 
 
 if __name__ == "__main__":

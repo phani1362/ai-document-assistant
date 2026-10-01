@@ -73,3 +73,13 @@ def test_summarize_separates_answerable_and_unanswerable() -> None:
     assert summary["answers"]["abstention_accuracy"] == 1.0
     assert summary["answers"]["correctness"] == 0.5
     assert summary["answers"]["faithfulness"] == 1.0
+
+
+def test_usage_tracker_costs_known_models_only() -> None:
+    from app.llm.chat import UsageTracker
+
+    tracker = UsageTracker()
+    tracker.record("gpt-4.1-mini", input_tokens=1_000_000, output_tokens=500_000)
+    assert tracker.total_cost() == 1.2
+    tracker.record("some-unpriced-model", input_tokens=10, output_tokens=10)
+    assert tracker.total_cost() is None
