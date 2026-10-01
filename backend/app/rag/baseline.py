@@ -1,4 +1,4 @@
-"""Naive RAG: one dense search, parent expansion, one LLM call.
+"""Single-pass RAG: retrieve, expand to parent sections, one LLM call.
 
 This is the reference point the evaluation compares every later pipeline against.
 """
@@ -9,7 +9,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.llm.chat import LLM
 from app.llm.embeddings import Embedder
-from app.retrieval.search import ContextPassage, RetrievedChunk, dense_search, expand_to_parents
+from app.retrieval.pipeline import retrieve
+from app.retrieval.search import ContextPassage, RetrievedChunk, expand_to_parents
 
 ABSTAIN_MESSAGE = "I could not find this in the indexed papers."
 
@@ -46,7 +47,7 @@ async def answer_baseline(
 ) -> RagResult:
     """Answer `question`. Pass `retrieved` to reuse a search that was already run."""
     if retrieved is None:
-        retrieved = await dense_search(session, embedder, question, k)
+        retrieved = await retrieve(session, embedder, question, k)
     passages = await expand_to_parents(session, retrieved[:k])
     if not passages:
         return RagResult(ABSTAIN_MESSAGE, [], retrieved)

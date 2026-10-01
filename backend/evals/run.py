@@ -22,7 +22,9 @@ from app.db.session import get_sessionmaker
 from app.llm.chat import LLM, get_llm, usage_tracker
 from app.llm.embeddings import Embedder, get_embedder
 from app.rag.baseline import RagResult, answer_baseline, format_sources
-from app.retrieval.search import RetrievedChunk, dense_search
+from app.retrieval.pipeline import retrieve
+from app.retrieval.rerank import rerank
+from app.retrieval.search import RetrievedChunk, dense_search, hybrid_search, keyword_search
 from evals.dataset import DEFAULT_DATASET, EvalItem, load_dataset
 from evals.judge import faithfulness, judge_answer
 from evals.metrics import (
@@ -60,8 +62,38 @@ async def _baseline_answer(
     return await answer_baseline(session, embedder, llm, question, k=k, retrieved=retrieved)
 
 
+async def _keyword(
+    session: AsyncSession, embedder: Embedder, question: str, k: int
+) -> list[RetrievedChunk]:
+    return await keyword_search(session, question, k)
+
+
+async def _hybrid_rerank(
+    session: AsyncSession, embedder: Embedder, question: str, k: int
+) -> list[RetrievedChunk]:
+    settings = get_settings()
+    candidates = await hybrid_search(session, embedder, question, settings.rerank_candidates)
+    return await rerank(get_llm(settings.rerank_llm), question, candidates, k)
+
+
+async def _dense_rerank(
+    session: AsyncSession, embedder: Embedder, question: str, k: int
+) -> list[RetrievedChunk]:
+    settings = get_settings()
+    candidates = await dense_search(session, embedder, question, settings.rerank_candidates)
+    return await rerank(get_llm(settings.rerank_llm), question, candidates, k)
+
+
+# Each variant changes only retrieval; answering is identical, so differences in answer
+# metrics come from what the LLM was shown.
 PIPELINES: dict[str, Pipeline] = {
     "baseline": Pipeline(retrieve=dense_search, answer=_baseline_answer),
+    "keyword": Pipeline(retrieve=_keyword, answer=_baseline_answer),
+    "hybrid": Pipeline(retrieve=hybrid_search, answer=_baseline_answer),
+    "hybrid-rerank": Pipeline(retrieve=_hybrid_rerank, answer=_baseline_answer),
+    "dense-rerank": Pipeline(retrieve=_dense_rerank, answer=_baseline_answer),
+    # Whatever app.retrieval.pipeline is configured to do (the production setting).
+    "app": Pipeline(retrieve=retrieve, answer=_baseline_answer),
 }
 
 
@@ -198,6 +230,7 @@ async def run(
         "pipeline": pipeline_name,
         "k": k,
         "top_k_context": settings.retrieval_top_k,
+        "rerank_llm": settings.chat_model if settings.rerank_llm == "chat" else settings.fast_model,
         "embedding": embedder.name,
         "llm": None if retrieval_only else settings.chat_model,
         "chunking": [

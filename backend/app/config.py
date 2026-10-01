@@ -47,6 +47,12 @@ class Settings(BaseSettings):
 
     # Retrieval.
     retrieval_top_k: int = 5
+    # Defaults chosen by evaluation; see docs/retrieval.md.
+    retrieval_mode: Literal["dense", "hybrid"] = "dense"
+    rerank: bool = True
+    # gpt-4.1-nano reranked no better than no reranker; gpt-4.1-mini lifted hit@1 0.73 -> 0.85.
+    rerank_llm: Literal["chat", "fast"] = "chat"
+    rerank_candidates: int = 20
     # HNSW candidates examined per query; higher = better recall, slower.
     hnsw_ef_search: int = 100
 

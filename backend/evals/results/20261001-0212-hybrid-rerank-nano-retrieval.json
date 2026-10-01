@@ -1,0 +1,4342 @@
+{
+  "config": {
+    "pipeline": "hybrid-rerank",
+    "k": 10,
+    "top_k_context": 5,
+    "embedding": "openai:text-embedding-3-small:768",
+    "llm": null,
+    "chunking": [
+      350,
+      50,
+      1200
+    ]
+  },
+  "summary": {
+    "questions": 72,
+    "answerable": 60,
+    "unanswerable": 12,
+    "retrieval": {
+      "hit@1": 0.75,
+      "hit@5": 0.9,
+      "hit@10": 0.967,
+      "mrr@10": 0.819,
+      "paper_hit@5": 1.0,
+      "p50_seconds": 2.27
+    },
+    "usage": {
+      "models": {
+        "text-embedding-3-small": {
+          "calls": 72,
+          "input_tokens": 2628,
+          "output_tokens": 0,
+          "cost_usd": 5.2560000000000005e-05
+        },
+        "gpt-4.1-nano": {
+          "calls": 72,
+          "input_tokens": 384836,
+          "output_tokens": 13212,
+          "cost_usd": 0.0437684
+        }
+      },
+      "total_cost_usd": 0.0438
+    }
+  },
+  "records": [
+    {
+      "id": "q001",
+      "kind": "factual",
+      "question": "What is the base model architecture and parameter size used for ORPHEAS in the paper \"ORPHEAS: A Cross-Lingual Greek\u2013English Embedding Model for Retrieval-Augmented Generation\"?",
+      "retrieval_seconds": 3.213,
+      "retrieved": [
+        {
+          "external_id": "2604.20666",
+          "section": "3 Development of ORPHEAS > 3.3 Model Architecture and Training",
+          "score": 3.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "3 Development of ORPHEAS",
+          "score": 2.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "4 Experimental Analysis > 4.1 Retrieval Evaluation on Public Monolingual and Cross-Lingual Benchmarks",
+          "score": 2.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "2 Related work",
+          "score": 2.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "3 Development of ORPHEAS > 3.1 Datasets",
+          "score": 2.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "4 Experimental Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "2 Related work",
+          "score": 1.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.20666",
+          "section": "5 Conclusions and future research",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q002",
+      "kind": "factual",
+      "question": "In the FiDO paper, how is the inverse operational intensity of cross-attention layers ($\\mathcal{R}^{\\text{C-MHA}}$) expressed, and why does it lead to a bottleneck in inference?",
+      "retrieval_seconds": 2.049,
+      "retrieved": [
+        {
+          "external_id": "2212.08153",
+          "section": "2 Analysis > 2.4 Operational intensity of FiD inference > Operational intensity of attention layers.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "5 Experiments > 5.3 Components > Multi-query attention",
+          "score": 2.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "3 Method > 3.2 Multi-query attention",
+          "score": 1.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "2 Analysis > 2.4 Operational intensity of FiD inference > Operational intensity of MLP layer.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "3 Method > 3.1 Layer-sparse cross-attention",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "3 Method > 3.1 Layer-sparse cross-attention",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "2 Analysis > 2.2 FLOPs of FiD model",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "4 Related Work > Efficient retrieval-augmented models",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "3 Case Studies > 3.4 Effect of Context Quality during Training on Model\u2019s Cross-attention > 3.4.2 Intervention Experiment",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q003",
+      "kind": "factual",
+      "question": "In the CONAN-R model described in 'Building A Coding Assistant via the Retrieval-Augmented Language Model', how are entities handled during the structure aware pretraining phase?",
+      "retrieval_seconds": 2.212,
+      "retrieved": [
+        {
+          "external_id": "2410.16229",
+          "section": "3. Methodology > 3.2. CONAN-R with Structure Aware Pretraining",
+          "score": 3.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "1. Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "3. Methodology > 3.2. CONAN-R with Structure Aware Pretraining",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "4. Experimental Methodology > 4.1. Dataset",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "5. Evaluation Result > 5.4. Retrieval Effectiveness of Code Structure Aware Pretraining",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "3. Methodology > 3.2. CONAN-R with Structure Aware Pretraining",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "5. Evaluation Result > 5.4. Retrieval Effectiveness of Code Structure Aware Pretraining",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "5. Evaluation Result > 5.4. Retrieval Effectiveness of Code Structure Aware Pretraining",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.16229",
+          "section": "5. Evaluation Result",
+          "score": 2.0
+        }
+      ],
+      "rank": null,
+      "doc_rank": 1
+    },
+    {
+      "id": "q004",
+      "kind": "factual",
+      "question": "In the RA-ISF paper, how are questions categorized into the sets \\(\\mathcal{Q}_{know}\\) and \\(\\mathcal{Q}_{unknow}\\) during the data collection of \\(\\mathcal{M}_{know}\\)?",
+      "retrieval_seconds": 2.075,
+      "retrieved": [
+        {
+          "external_id": "2403.06840",
+          "section": "Appendix A Details of Data Collection > A.1 Data Collection of $\\mathcal{M}_{know}$",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "Appendix A Details of Data Collection > A.1 Data Collection of $\\mathcal{M}_{know}$",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "Appendix A Details of Data Collection > A.3 Data Collection of $\\mathcal{M}_{decom}$",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "3 Methodology > 3.2 RA-ISF Training",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "3 Methodology > 3.2 RA-ISF Training",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "3 Methodology > 3.3 RA-ISF Inference",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "3 Methodology > 3.1 Overview",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "5 Experiment Results > 5.6 Human and Model Assessments",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "3 Methodology > 3.3 RA-ISF Inference",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "Appendix A Details of Data Collection > A.2 Data Collection of $\\mathcal{M}_{rel}$",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q005",
+      "kind": "factual",
+      "question": "In the MASS-RAG experiments, how many retrieved documents are used for the Llama2 7B model and for other models, and what is the rationale behind this choice?",
+      "retrieval_seconds": 2.632,
+      "retrieved": [
+        {
+          "external_id": "2604.18509",
+          "section": "4 Experiment > 4.4 Experimental Settings",
+          "score": 3.0
+        },
+        {
+          "external_id": "2604.18509",
+          "section": "4 Experiment > 4.4 Experimental Settings",
+          "score": 3.0
+        },
+        {
+          "external_id": "2604.18509",
+          "section": "3 Multi-Agent Synthesis RAG (MASS-RAG) > 3.1 Definition of LLM Agents in MASS-RAG > Synthesis Agent.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2604.18509",
+          "section": "4 Experiment > 4.5 Ablation Study and Analysis > Ablation Study on # of Retrieved Documents",
+          "score": 2.0
+        },
+        {
+          "external_id": "2604.18509",
+          "section": "4 Experiment > 4.4 Experimental Settings",
+          "score": 1.0
+        },
+        {
+          "external_id": "2604.18509",
+          "section": "Abstract",
+          "score": 1.0
+        },
+        {
+          "external_id": "2405.19893",
+          "section": "4 Experiments > 4.1 Experimental Setup > 4.1.2 Baselines",
+          "score": 1.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "5 Evaluation > 5.2 Baselines",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.18509",
+          "section": "4 Experiment > 4.3 Main Results (RQ1)",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.18509",
+          "section": "Appendix",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q006",
+      "kind": "factual",
+      "question": "In HetaRAG's Hybrid Retrieval method, what is the role of the parameter alpha?",
+      "retrieval_seconds": 2.034,
+      "retrieved": [
+        {
+          "external_id": "2509.21336",
+          "section": "3 Methodolody > 3.4 Advanced Retrieval",
+          "score": 3.0
+        },
+        {
+          "external_id": "2210.06345",
+          "section": "4 Experiments > 4.5 Ablation Study > Variational bounds",
+          "score": 3.0
+        },
+        {
+          "external_id": "2606.10381",
+          "section": "3 Methodology > 3.1 Hybrid Retrieval",
+          "score": 2.0
+        },
+        {
+          "external_id": "2404.19543",
+          "section": "3 Retriever",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.21336",
+          "section": "3 Methodolody > 3.1 Data Processing",
+          "score": 2.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "2 Retrieval-Augmented Task Adaptation > 2.3 Task Adaptation with Retrieved Samples > Retrieval-based adaptation.",
+          "score": 2.0
+        },
+        {
+          "external_id": "2606.10381",
+          "section": "4 Experiments > 4.2 Hybrid Retriever Optimization",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.21336",
+          "section": "3 Methodolody > 3.1 Data Processing",
+          "score": 1.0
+        },
+        {
+          "external_id": "2509.21336",
+          "section": "5 Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2509.21336",
+          "section": "4 Experiment",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q007",
+      "kind": "factual",
+      "question": "Which evaluation metrics were used to assess xRAG's performance on the Open Domain Question Answering datasets and HotpotQA?",
+      "retrieval_seconds": 2.134,
+      "retrieved": [
+        {
+          "external_id": "2405.13792",
+          "section": "4 Experimental Setup > 4.1 Evaluation Dataset",
+          "score": 3.0
+        },
+        {
+          "external_id": "2608.22479",
+          "section": "4 Experiments > 4.1 Experimental Setup > Benchmarks and evaluation.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.13792",
+          "section": "6 Analysis > 6.2 What makes xRAG effective?",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.1 Datasets and Experiment Settings > 4.1.2 Evaluation Metrics",
+          "score": 2.0
+        },
+        {
+          "external_id": "2405.13792",
+          "section": "6 Analysis > 6.2 What makes xRAG effective?",
+          "score": 2.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "5 Evaluation > 5.1 Datasets",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "Appendix B Experimental details > B.1 Datatsets > Evaluation Datasets",
+          "score": 0.0
+        },
+        {
+          "external_id": "2501.05554",
+          "section": "4 EXPERIMENTS > 4.1 Datasets",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "5 Experiments > 5.1 Experimental Settings",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.22874",
+          "section": "4 Experiments",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q008",
+      "kind": "factual",
+      "question": "In the MKRAG paper's Case Study 1 (Question_id: 1253), which disease is associated with diffuse blanching erythema, flaccid blisters, and a positive Nikolsky's sign?",
+      "retrieval_seconds": 2.185,
+      "retrieved": [
+        {
+          "external_id": "2309.16035",
+          "section": "Experiments > Case Study",
+          "score": 3.0
+        },
+        {
+          "external_id": "2309.16035",
+          "section": "Experiments > Case Study",
+          "score": 0.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.1 Clinical Scenario",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.06345",
+          "section": "Appendix H MedWiki > MedQA vs. MedWiki > Quantitative comparison",
+          "score": 0.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "Appendix D. Sample Output For Baseline Model for Question 40",
+          "score": 0.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.4 Dual Evidence Retrieval and Reasoning (DER) in EHR-RAG > B.4.2 Negative Reasoning (Supporting Short Stay $<$ 7 Days)",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.15164",
+          "section": "6 Case Study > True Positives (RA: 17, BL: 6).",
+          "score": 0.0
+        },
+        {
+          "external_id": "2308.07922",
+          "section": "3 Methodology > 3.1 In-Context Learning with Retrieval-Augmented Encoder-Decoder LMs",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.06345",
+          "section": "Appendix H MedWiki > MedQA vs. MedWiki > Quantitative comparison",
+          "score": 0.0
+        },
+        {
+          "external_id": "2605.02491",
+          "section": "5 Case Studies and Results",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q009",
+      "kind": "factual",
+      "question": "In the geological image captioning approach mentioned in 'From Pixels to Posts: Retrieval-Augmented Fashion Captioning and Hashtag Generation', how do domain-specific embeddings affect semantic accuracy and linguistic suitability compared to generic baselines?",
+      "retrieval_seconds": 2.268,
+      "retrieved": [
+        {
+          "external_id": "2511.19149",
+          "section": "2 Related Work",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "2 Related Work",
+          "score": 2.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "2 Related Work",
+          "score": 1.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "2 Related Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "3 Methodology > 3.5 BLIP Baseline for Comparison",
+          "score": 0.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "3 Methodology > 3.6 Evaluation Metrics and Experimental Design > 3.6.2 Caption Quality",
+          "score": 0.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "2 Related Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "3 Methodology",
+          "score": 0.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "7 Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2511.19149",
+          "section": "2 Related Work",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q010",
+      "kind": "factual",
+      "question": "What knowledge graph (KG) related tasks have pre-trained large language models demonstrated the ability to handle according to the SimGRAG paper?",
+      "retrieval_seconds": 2.557,
+      "retrieved": [
+        {
+          "external_id": "2412.15272",
+          "section": "2 Related Work > Knowledge Graph Meets Large Language Models.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2412.15272",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2412.15272",
+          "section": "6 Experiments > 6.3 Comparative Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2412.15272",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2408.08535",
+          "section": "2 Related Work",
+          "score": 1.0
+        },
+        {
+          "external_id": "2412.15272",
+          "section": "6 Experiments > 6.4 Ablation Studies > Choice of Large Language Models.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.12887",
+          "section": "2 Related Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "1. Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.01113",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.14154",
+          "section": "II Related Work > II-C Multimodal Retrieval-Augmented Models",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q011",
+      "kind": "factual",
+      "question": "In the DeepRAG paper, how does reinforcement learning affect the F1 score and retrieval behavior on the 2WikiMultihopQA benchmark?",
+      "retrieval_seconds": 2.363,
+      "retrieved": [
+        {
+          "external_id": "2502.01142",
+          "section": "5 Analysis > 5.3 Effectiveness under RL Setting",
+          "score": 3.0
+        },
+        {
+          "external_id": "2502.01142",
+          "section": "5 Analysis > 5.2 Relevance to Parametric Knowledge",
+          "score": 3.0
+        },
+        {
+          "external_id": "2502.01142",
+          "section": "Appendix C Detailed Analysis > C.1 Retrieval Efficiency",
+          "score": 3.0
+        },
+        {
+          "external_id": "2502.01142",
+          "section": "5 Analysis > 5.2 Relevance to Parametric Knowledge",
+          "score": 3.0
+        },
+        {
+          "external_id": "2502.01142",
+          "section": "Appendix C Detailed Analysis > C.4 Ablation Study > Imitation Learning",
+          "score": 1.0
+        },
+        {
+          "external_id": "2609.02366",
+          "section": "5 Conclusion",
+          "score": 1.0
+        },
+        {
+          "external_id": "2502.01142",
+          "section": "4 Experiment > 4.4 Overall Results",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.01142",
+          "section": "4 Experiment > 4.3 Implementation Details",
+          "score": 0.0
+        },
+        {
+          "external_id": "2608.22479",
+          "section": "4 Experiments > 4.1 Experimental Setup > Benchmarks and evaluation.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2608.22479",
+          "section": "4 Experiments > 4.2 Main Results",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q012",
+      "kind": "factual",
+      "question": "What is the main innovation of the DuetRAG framework in Retrieval-Augmented Generation as described in the paper 'DuetRAG: Collaborative Retrieval-Augmented Generation'?",
+      "retrieval_seconds": 2.509,
+      "retrieved": [
+        {
+          "external_id": "2405.13002",
+          "section": "4 DuetRAG: Collaborative Retrieval-Augmented Generation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "1 Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "4 DuetRAG: Collaborative Retrieval-Augmented Generation > 4.2 Overview of DuetRAG",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "4 DuetRAG: Collaborative Retrieval-Augmented Generation > 4.4 Model-Collaborative Inference",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "2 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "5 Evaluation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "3 Related Work",
+          "score": 2.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "5 Evaluation > 5.3 Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2502.13847",
+          "section": "Related Work > Retrieval-Augmented Generation (RAG)",
+          "score": 1.0
+        },
+        {
+          "external_id": "2405.13002",
+          "section": "",
+          "score": 1.0
+        }
+      ],
+      "rank": 2,
+      "doc_rank": 1
+    },
+    {
+      "id": "q013",
+      "kind": "factual",
+      "question": "How does BlendFilter perform in terms of retrieval accuracy compared to direct retrieval and ITER-RETGEN on the HotPotQA dataset?",
+      "retrieval_seconds": 2.076,
+      "retrieved": [
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.4 Effectiveness for Retrieval",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.2 Performance Comparison",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.2 Performance Comparison",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.2 Performance Comparison",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.2 Performance Comparison",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.3 Combining with BM25",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.2 Performance Comparison",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.6 Number of Retrieved Documents",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.06840",
+          "section": "4 Experimental Setup > 4.3 Retriever and Corpus",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.11129",
+          "section": "4 Experiment > 4.1 Datasets and Experiment Settings > 4.1.3 Baselines",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q014",
+      "kind": "factual",
+      "question": "In the paper \"Synchronous Faithfulness Monitoring for Trustworthy Retrieval-Augmented Generation,\" how are faithfulness labels assigned to sentences for the FS, F-100, and F-100-anti tasks?",
+      "retrieval_seconds": 2.05,
+      "retrieved": [
+        {
+          "external_id": "2406.13692",
+          "section": "Appendix B Benchmark Construction Details > B.2 Trustworthiness label generation > Biography",
+          "score": 3.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "4 Experimental Setup > 4.1 Task and Dataset Collection > Biography",
+          "score": 3.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "4 Experimental Setup > 4.2 Context Faithfulness Tracking > Label construction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "4 Experimental Setup > 4.2 Context Faithfulness Tracking > Label construction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "4 Experimental Setup > 4.3 Faithfulness Intervention > Evaluation Metric",
+          "score": 2.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "4 Experimental Setup > 4.3 Faithfulness Intervention > Evaluation Metric",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "Appendix B Benchmark Construction Details > B.2 Trustworthiness label generation",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "Ethics Statement",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.13692",
+          "section": "Appendix B Benchmark Construction Details > B.1 F-100 and F-100-anti",
+          "score": 0.0
+        }
+      ],
+      "rank": 3,
+      "doc_rank": 1
+    },
+    {
+      "id": "q015",
+      "kind": "factual",
+      "question": "What statistical tests are used in the ClusterRAG paper to identify significant differences in performance for generation, ordinal classification, and categorical text classification evaluations?",
+      "retrieval_seconds": 2.342,
+      "retrieved": [
+        {
+          "external_id": "2605.18769",
+          "section": "5 Experiments > 5.3 Experimental Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2605.18769",
+          "section": "5 Experiments > 5.1 Experimental Setup > Datasets.",
+          "score": 2.0
+        },
+        {
+          "external_id": "2605.18769",
+          "section": "Limitations",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.16353",
+          "section": "4 Results > 4.3 Performance Results",
+          "score": 0.0
+        },
+        {
+          "external_id": "2605.18769",
+          "section": "5 Experiments > 5.3 Experimental Results > 5.3.1 Comparison with Baselines",
+          "score": 0.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "3 Methods > 3.7 Evaluation Using RAGAS",
+          "score": 0.0
+        },
+        {
+          "external_id": "2605.18769",
+          "section": "5 Experiments > 5.3 Experimental Results > 5.3.4 Ablation Study",
+          "score": 0.0
+        },
+        {
+          "external_id": "2605.18769",
+          "section": "5 Experiments > 5.3 Experimental Results > 5.3.4 Ablation Study",
+          "score": 0.0
+        },
+        {
+          "external_id": "2311.06595",
+          "section": "6 Ablation Study > 6.1 The Stability across Templates",
+          "score": 0.0
+        },
+        {
+          "external_id": "2605.18769",
+          "section": "Appendix F Cluster Cohesion for Collaborative User Retrieval",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q016",
+      "kind": "factual",
+      "question": "In the CARE method's reinforcement learning phase, what is the purpose of the curriculum learning strategy involving datasets \\(\\mathcal{D}_{\\text{easy}}\\) and \\(\\mathcal{D}_{\\text{hard}}\\)?",
+      "retrieval_seconds": 2.151,
+      "retrieved": [
+        {
+          "external_id": "2509.13683",
+          "section": "3 The CARE Method > 3.4 Reinforcement Learning Phase > Curriculum Learning Strategy.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "5 Results and Analysis > 5.3 Ablation Studies",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "3 The CARE Method > 3.1 Overview",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "3 The CARE Method > 3.4 Reinforcement Learning Phase",
+          "score": 1.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "3 Methodology > 3.3 AssistRAG Training > 3.3.1 Curriculum Assistant Learning",
+          "score": 1.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "3 The CARE Method > 3.4 Reinforcement Learning Phase > Curriculum Learning Strategy.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "3 The CARE Method > 3.4 Reinforcement Learning Phase > Reward Design.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "3 The CARE Method > 3.4 Reinforcement Learning Phase > Reward Design.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2609.02366",
+          "section": "3 Methodology > 3.1 Multi-Task Capability Initialization > Task Design and Data Construction.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "3 The CARE Method",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q017",
+      "kind": "factual",
+      "question": "In the paper 'Retrieval-Augmented Skill Optimization via Cross-Harness Adaptation', how does the RASU skill update method perform compared to WikiSkill and SkillOpt under RASI initialization on the OfficeQA and SpreadsheetBench benchmarks?",
+      "retrieval_seconds": 2.162,
+      "retrieved": [
+        {
+          "external_id": "2609.38024",
+          "section": "5 Experiment > 5.2 Analysis",
+          "score": 3.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "5 Experiment > 5.1 Main Results > Skill Update",
+          "score": 3.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "5 Experiment > 5.2 Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "5 Experiment > 5.2 Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "6 Conclusion",
+          "score": 2.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "5 Experiment > 5.1 Main Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2609.38024",
+          "section": "5 Experiment",
+          "score": 2.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q018",
+      "kind": "factual",
+      "question": "How does MedBioRAG perform compared to previous state-of-the-art models and GPT-4o on retrieval and QA tasks according to the task-wise performance comparison?",
+      "retrieval_seconds": 2.136,
+      "retrieved": [
+        {
+          "external_id": "2512.10996",
+          "section": "2 Related Work > 2.2 Retrieval-Augmented Generation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "4 Experiments > 4.2 Experimental Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "4 Experiments > 4.1 Experimental Setups",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "4 Experiments > 4.1 Experimental Setups",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "4 Experiments > 4.2 Experimental Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "1 Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "5 Conclusion",
+          "score": 3.0
+        },
+        {
+          "external_id": "2502.01142",
+          "section": "Appendix C Detailed Analysis > C.3 Performance against Strong Baseline Models",
+          "score": 2.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "4 Experiments > 4.1 Experimental Setups",
+          "score": 2.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q019",
+      "kind": "factual",
+      "question": "In the ATLANTIC model described in 'ATLANTIC: Structure-Aware Retrieval-Augmented Language Model for Interdisciplinary Science', how are the retrieved passages processed differently compared to the ATLAS model before being fed into the language model?",
+      "retrieval_seconds": 2.103,
+      "retrieved": [
+        {
+          "external_id": "2311.12289",
+          "section": "3 Methodology",
+          "score": 3.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "6 Conclusion",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "5 Performance Analysis > Structure aware RALMs retrieve relevant passages to justify model predictions better than text-only models",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "5 Performance Analysis > Retrieving structural knowledge helps RALMs to perform better than just retrieving textual knowledge",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "5 Performance Analysis > Retrieving structural knowledge helps RALMs to perform better than just retrieving textual knowledge",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "4 Experimental Setup > 4.1 Datasets",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "Abstract",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.12289",
+          "section": "5 Performance Analysis",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q020",
+      "kind": "factual",
+      "question": "In the paper \"The Good and The Bad: Exploring Privacy Issues in Retrieval-Augmented Generation (RAG)\", how does increasing the number of retrieved documents per query (k) affect privacy leakage in untargeted and targeted attacks?",
+      "retrieval_seconds": 2.247,
+      "retrieved": [
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG?",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.3 Results of Targeted Attack",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.4 Ablation Study",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.1 Evaluation Setup > Datasets and Metrics.",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.5 Potential Mitigation > Set Distance Threshold.",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.5 Potential Mitigation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "5 RQ2: Can retrieval data affect the memorization of LLMs in RAG? > 5.2 Targeted Attack",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.4 Ablation Study",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "6 Conclusions",
+          "score": 1.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.5 Potential Mitigation > Summarization with Relevant Query.",
+          "score": 1.0
+        }
+      ],
+      "rank": 3,
+      "doc_rank": 1
+    },
+    {
+      "id": "q021",
+      "kind": "factual",
+      "question": "According to \"The Effect of Text Chunk Size on Retrieval-Augmented Generation Performance,\" how does the optimal chunk size vary between structured narrative documents and fragmented information-dense texts?",
+      "retrieval_seconds": 2.231,
+      "retrieved": [
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 3.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 3.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 3.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 3.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 3.0
+        },
+        {
+          "external_id": "2607.01852",
+          "section": "III Methodology > III-A Chunking Strategies > Fixed-Sized Chunking",
+          "score": 3.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 2.0
+        },
+        {
+          "external_id": "2403.03187",
+          "section": "Appendix B Detailed Taxonomy of Retrieval-augmented LMs > B.1 Architectures > B.1.1 Granularity of Retrieval",
+          "score": 2.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.01852",
+          "section": "Abstract",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q022",
+      "kind": "factual",
+      "question": "What are the three groups of baselines used in the 'Thinking Forward and Backward: Multi-Objective Reinforcement Learning for Retrieval-Augmented Reasoning' paper, and which methods belong to each group?",
+      "retrieval_seconds": 2.335,
+      "retrieved": [
+        {
+          "external_id": "2511.09109",
+          "section": "3 Method > 3.3 Multi-objective optimization with RL",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "6 Related Work",
+          "score": 2.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "3 Method > 3.3 Multi-objective optimization with RL",
+          "score": 2.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "3 Method > 3.3 Multi-objective optimization with RL",
+          "score": 2.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "3 Method > 3.1 Overview",
+          "score": 1.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "7 Conclusion",
+          "score": 1.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "3 Method > 3.3 Multi-objective optimization with RL",
+          "score": 1.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "4 Experimental Settings",
+          "score": 1.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "4 Experimental Settings",
+          "score": 0.0
+        }
+      ],
+      "rank": 10,
+      "doc_rank": 1
+    },
+    {
+      "id": "q023",
+      "kind": "factual",
+      "question": "In the EHR-RAG system's Adaptive Information Retrieval (AIR) process, what rationale is given for querying \"External ventricular drain management post-aneurysm\" during the positive reasoning path for evidence of long ICU stay?",
+      "retrieval_seconds": 2.582,
+      "retrieved": [
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.4 Dual Evidence Retrieval and Reasoning (DER) in EHR-RAG > B.4.1 Positive Reasoning (Supporting Long Stay $\\geq$ 7 Days)",
+          "score": 3.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.3 Adaptive Information Retrieval (AIR) in EHR-RAG > B.3.1 Positive Reasoning Path (Evidence for Long Stay)",
+          "score": 2.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.3 Adaptive Information Retrieval (AIR) in EHR-RAG > B.3.2 Negative Reasoning Path (Evidence for Short Stay)",
+          "score": 1.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.4 Dual Evidence Retrieval and Reasoning (DER) in EHR-RAG > B.4.1 Positive Reasoning (Supporting Long Stay $\\geq$ 7 Days)",
+          "score": 1.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.5 Failure Analysis: Why Direct Generation and Vanilla RAG Failed > B.5.3 EHR-RAG Success",
+          "score": 1.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.3 Adaptive Information Retrieval (AIR) in EHR-RAG",
+          "score": 0.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.4 Dual Evidence Retrieval and Reasoning (DER) in EHR-RAG > B.4.3 Evidence Fusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "4 Experiments > 4.4 Ablation Analysis of Key Components",
+          "score": 0.0
+        },
+        {
+          "external_id": "2601.21340",
+          "section": "Appendix B Case Study > B.4 Dual Evidence Retrieval and Reasoning (DER) in EHR-RAG",
+          "score": 0.0
+        }
+      ],
+      "rank": 2,
+      "doc_rank": 1
+    },
+    {
+      "id": "q024",
+      "kind": "factual",
+      "question": "In the ReGeS paper, how much does incorporating hard negatives improve the recommendation success rate on the ReDial and INSPIRED datasets compared to fine-tuning the LLM without hard negatives?",
+      "retrieval_seconds": 2.092,
+      "retrieved": [
+        {
+          "external_id": "2509.21371",
+          "section": "3. Experiments > 3.5. Effect of Reciprocal Synergy > Retrieval-Augmented Generation.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2509.21371",
+          "section": "3. Experiments > 3.6. Additional Analyses > 3.6.2. Retrieval-augmented Generation: Enhance Accuracy on Item Recommendation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.21371",
+          "section": "3. Experiments > 3.7. Discussion > 3.7.2. Chain-of-Thoughts",
+          "score": 1.0
+        },
+        {
+          "external_id": "2509.21371",
+          "section": "3. Experiments > 3.3. Implementation Details > ReGeS Training Protocol",
+          "score": 1.0
+        },
+        {
+          "external_id": "2503.06430",
+          "section": "4 Experiments > 4.2 Recommendation Evaluation",
+          "score": 1.0
+        },
+        {
+          "external_id": "2509.21371",
+          "section": "3. Experiments > 3.4. Overall Performance",
+          "score": 1.0
+        },
+        {
+          "external_id": "2506.00210",
+          "section": "6 Results > 6.1 Intent Detection Ability",
+          "score": 0.0
+        },
+        {
+          "external_id": "2506.00210",
+          "section": "7 Impact of Retrieval Candidate Size > 7.2 Online Deployment Performance",
+          "score": 0.0
+        },
+        {
+          "external_id": "2503.06430",
+          "section": "4 Experiments > 4.2 Recommendation Evaluation",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "Abstract",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q025",
+      "kind": "factual",
+      "question": "What components do recent vision-language models like BLIP-2, Flamingo, LLaVA, and InstructBLIP typically use in their architecture?",
+      "retrieval_seconds": 2.172,
+      "retrieved": [
+        {
+          "external_id": "2410.08876",
+          "section": "2 Related Work > Vision-Language Models",
+          "score": 3.0
+        },
+        {
+          "external_id": "2410.14154",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2410.14154",
+          "section": "III METHODOLOGY > III-B Model Architecture",
+          "score": 3.0
+        },
+        {
+          "external_id": "2410.08876",
+          "section": "4 Experiment Setup > Baselines",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.08876",
+          "section": "2 Related Work > Vision-Language Models",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.14154",
+          "section": "II Related Work > II-A Vision-Language Pretraining",
+          "score": 2.0
+        },
+        {
+          "external_id": "2406.19150",
+          "section": "3 Proposed Approach > 3.3 Base Vision-Language Model (VLM)",
+          "score": 2.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "Appendix H Extension beyond CLIP-like models",
+          "score": 2.0
+        },
+        {
+          "external_id": "2410.14154",
+          "section": "I Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2406.19150",
+          "section": "1 Introduction",
+          "score": 2.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q026",
+      "kind": "factual",
+      "question": "In the Adaptive-RAG system, what are the exact elapsed times per query for the 'No', 'One', and 'Multi' labels predicted by the query-complexity classifier, and what percentages of queries do these labels represent?",
+      "retrieval_seconds": 2.196,
+      "retrieved": [
+        {
+          "external_id": "2403.14403",
+          "section": "5 Experimental Results and Analyses > Analyses on Efficiency for Classifier",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "3 Method > 3.2 Adaptive-RAG: Adaptive Retrieval-Augmented Generation > Query Complexity Assessment",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "5 Experimental Results and Analyses > Classifier Performance",
+          "score": 2.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "3 Method > 3.2 Adaptive-RAG: Adaptive Retrieval-Augmented Generation > Training Strategy",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "Limitations",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "3 Method > 3.2 Adaptive-RAG: Adaptive Retrieval-Augmented Generation > Training Strategy",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "5 Experimental Results and Analyses > Case Study",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "5 Experimental Results and Analyses > Analyses on Training Data for Classifier",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "4 Experimental Setups > 4.1 Datasets > Multi-hop QA",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "5 Experimental Results and Analyses > Analyses on Training Data for Classifier",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q027",
+      "kind": "factual",
+      "question": "In the paper \"Context Quality Matters in Training Fusion-in-Decoder for Extractive Open-Domain Question Answering,\" how is a passage determined to be relevant to a question in the open-domain setting for Natural Questions and TriviaQA?",
+      "retrieval_seconds": 2.498,
+      "retrieved": [
+        {
+          "external_id": "2403.14197",
+          "section": "2 Experimental Setup > 2.3 Relevant and Irrelevant Passage",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "2 Experimental Setup > 2.1 Task and Dataset",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "Abstract",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "Appendix A Implementation Details > A.1 Training and Evaluation Data",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "6 Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "7 Limitations",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "3 Case Studies",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.14197",
+          "section": "7 Limitations",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q028",
+      "kind": "factual",
+      "question": "What evaluation metrics did the Loops On Retrieval Augmented Generation (LoRAG) framework outperform existing state-of-the-art models on?",
+      "retrieval_seconds": 2.427,
+      "retrieved": [
+        {
+          "external_id": "2403.15450",
+          "section": "V Conclusion",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "IV Results and Analysis > IV-B Quantitative Evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "II Related Work > II-D LoRAG Framework",
+          "score": 3.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "IV Results and Analysis > IV-C Discussion",
+          "score": 2.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "IV Results and Analysis",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "I Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "IV Results and Analysis > IV-D Limitations and Future Work",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "I Introduction > I-B Objective",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.15450",
+          "section": "II Related Work",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q029",
+      "kind": "factual",
+      "question": "According to the ACL 2023 paper \"When Not to Trust Language Models: Investigating Effectiveness of Parametric and Non-Parametric Memories,\" what is the recall@1 for questions where retrieval-augmentation causes GPT-3 davinci-003 to incorrectly answer a question it could otherwise answer correctly?",
+      "retrieval_seconds": 2.371,
+      "retrieved": [
+        {
+          "external_id": "2212.10511",
+          "section": "5 Non-parametric Memory Complements Parametric Memory > 5.2 Results > Non-parametric memories can mislead LMs.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "Appendix C Detailed Results > C.3 Qualitative Results",
+          "score": 1.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "5 Non-parametric Memory Complements Parametric Memory > 5.2 Results > Non-parametric memories are effective for less popular facts.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "5 Non-parametric Memory Complements Parametric Memory > 5.2 Results > Retrieval largely improves performance.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "6 Adaptive Retrieval: Using Retrieval Only Where It Helps > 6.2 Results > Adaptive Retrieval improves performance.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "6 Adaptive Retrieval: Using Retrieval Only Where It Helps > 6.2 Results > The threshold shifts with LM scale.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "2 Related Work > Understanding memorization.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.10511",
+          "section": "6 Adaptive Retrieval: Using Retrieval Only Where It Helps > 6.1 Method",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q030",
+      "kind": "factual",
+      "question": "What are the two subtasks involved in the Retrieval-Augmented Debating (RAD) task in the Touch\u00e9 2025 competition as described by the DS@GT ARC team?",
+      "retrieval_seconds": 2.3,
+      "retrieved": [
+        {
+          "external_id": "2608.08143",
+          "section": "1 Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2608.08143",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2608.08143",
+          "section": "3 Methodology",
+          "score": 1.0
+        },
+        {
+          "external_id": "2608.08143",
+          "section": "4 Results > 4.1 Leaderboard",
+          "score": 0.0
+        },
+        {
+          "external_id": "2412.05206",
+          "section": "3 Retrieval Augmented Argumentation",
+          "score": 0.0
+        },
+        {
+          "external_id": "2608.08143",
+          "section": "2 Related Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.22841",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2608.08143",
+          "section": "3 Methodology",
+          "score": 0.0
+        },
+        {
+          "external_id": "2608.08143",
+          "section": "6 Future Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2605.26019",
+          "section": "1 Introduction",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q031",
+      "kind": "factual",
+      "question": "In the study using the Vio-Lens dataset, how did the F1 score improvements from retrieval-augmented prompting compare between Bloomz-3b and mBERT according to the CREA-ICL method?",
+      "retrieval_seconds": 2.254,
+      "retrieved": [
+        {
+          "external_id": "2311.06595",
+          "section": "6 Ablation Study > 6.1 The Stability across Templates",
+          "score": 3.0
+        },
+        {
+          "external_id": "2311.06595",
+          "section": "5 Results > 5.1 Results of classification tasks",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "6 Ablation Study > 6.1 The Stability across Templates",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.06595",
+          "section": "5 Results > 5.1 Results of classification tasks",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "5 Results > 5.1 Results of classification tasks",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.06595",
+          "section": "5 Results > 5.1 Results of classification tasks",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "5 Results > 5.1 Results of classification tasks",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "5 Results > 5.1 Results of classification tasks",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.06595",
+          "section": "5 Results > 5.2 Results of generation task > CREA-ICL with k=1",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.06595",
+          "section": "5 Results > 5.1 Results of classification tasks",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q032",
+      "kind": "factual",
+      "question": "What retrieval methods have been studied to improve performance in retrieval-augmented generation (RAG) according to the paper 'Considering Length Diversity in Retrieval-Augmented Summarization'?",
+      "retrieval_seconds": 2.345,
+      "retrieved": [
+        {
+          "external_id": "2503.09249",
+          "section": "1 Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "2 Maximal Marginal Relevance",
+          "score": 3.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "6 Conclusion",
+          "score": 3.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "4 Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "4 Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2503.09249",
+          "section": "4 Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2305.17653",
+          "section": "6 Conclusion",
+          "score": 2.0
+        }
+      ],
+      "rank": 6,
+      "doc_rank": 1
+    },
+    {
+      "id": "q033",
+      "kind": "factual",
+      "question": "What are some of the NLP subfields that research on Bangla NLP has covered since the 1990s, as mentioned in the paper 'Crosslingual Retrieval Augmented In-context Learning for Bangla'?",
+      "retrieval_seconds": 2.683,
+      "retrieved": [
+        {
+          "external_id": "2311.00587",
+          "section": "2 Related Work > Bangla Natural Language Processing",
+          "score": 3.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "2 Related Work > Multilingual In-context Learning",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "2 Related Work > Bangla Natural Language Processing",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "3 Methodology",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "4 Experiments",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "7 Conclusion",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "Abstract",
+          "score": 1.0
+        },
+        {
+          "external_id": "2311.00587",
+          "section": "1 Introduction",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q034",
+      "kind": "factual",
+      "question": "In the paper 'Metacognitive Retrieval-Augmented Large Language Models', how is metacognition classified according to Figure 1(a)?",
+      "retrieval_seconds": 2.346,
+      "retrieved": [
+        {
+          "external_id": "2402.11626",
+          "section": "1. Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "1. Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "4. Metacognitive RAG",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "1. Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "1. Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.17194",
+          "section": "Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.22571",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "4. Metacognitive RAG > 4.3. Planning: Strategizing Answer Refinement",
+          "score": 0.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "Ethics",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.16843",
+          "section": "Abstract",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q035",
+      "kind": "factual",
+      "question": "In the Retrieval-Augmented VLMs for Multimodal Melanoma Diagnosis study, how does the ResNeXt-50 image encoder compare to EfficientNet-V2-M in terms of recovery rates for false positives and false negatives?",
+      "retrieval_seconds": 2.479,
+      "retrieved": [
+        {
+          "external_id": "2509.08338",
+          "section": "3 Experiment > 3.2 Qualitative Evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "2 Proposed Approach",
+          "score": 3.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "3 Experiment > 3.1 Quantitative Evaluation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "2 Proposed Approach",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "3 Experiment > 3.2 Qualitative Evaluation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "2 Proposed Approach",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "2 Proposed Approach",
+          "score": 2.0
+        },
+        {
+          "external_id": "2509.08338",
+          "section": "3 Experiment > 3.2 Qualitative Evaluation",
+          "score": 2.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q036",
+      "kind": "factual",
+      "question": "What is the perplexity (PPL) score of the Hybrid-RACA IT model on the Enron Emails dataset according to the Hybrid-RACA paper's Appendix A?",
+      "retrieval_seconds": 2.459,
+      "retrieved": [
+        {
+          "external_id": "2308.04215",
+          "section": "Appendix A More results on utility evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "4 Experiments",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "Appendix A More results on utility evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "Appendix A More results on utility evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "Appendix A More results on utility evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "4 Experiments",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "Appendix A More results on utility evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "Appendix A More results on utility evaluation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "Appendix C Examples of the model completions",
+          "score": 3.0
+        },
+        {
+          "external_id": "2308.04215",
+          "section": "4 Experiments",
+          "score": 3.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q037",
+      "kind": "factual",
+      "question": "In the paper \"A Retrieval-Augmented Generation Framework for Academic Literature Navigation in Data Science,\" how does the Enhanced Prompting Technique (B + G + FT + SC + AF + EPT) affect Context Relevance (CR) and Answer Relevance (AR) compared to other configurations?",
+      "retrieval_seconds": 2.983,
+      "retrieved": [
+        {
+          "external_id": "2412.15404",
+          "section": "4 Results > 4.3 Performance metrics for RAG pipeline configurations using the fine-tuning model with Experiment 6",
+          "score": 3.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "4 Results > 4.3 Performance metrics for RAG pipeline configurations using the fine-tuning model with Experiment 6",
+          "score": 3.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "4 Results > 4.2 Performance metrics for RAG pipeline configurations using the fine-tuning model with Experiment 3",
+          "score": 2.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "4 Results > 4.2 Performance metrics for RAG pipeline configurations using the fine-tuning model with Experiment 3",
+          "score": 2.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "4 Results > 4.2 Performance metrics for RAG pipeline configurations using the fine-tuning model with Experiment 3",
+          "score": 2.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "4 Results > 4.3 Performance metrics for RAG pipeline configurations using the fine-tuning model with Experiment 6",
+          "score": 2.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "3 Methods > 3.6 Enhanced Prompting Technique",
+          "score": 2.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "2 Literature Review",
+          "score": 2.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "5 Discussion",
+          "score": 1.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "5 Discussion",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q038",
+      "kind": "factual",
+      "question": "What is the purpose of the Medical Retrieval-Augmented Generation Benchmark (MedRGB) introduced in the paper \"Comprehensive and Practical Evaluation of Retrieval-Augmented Generation Systems for Medical Question Answering\"?",
+      "retrieval_seconds": 2.714,
+      "retrieved": [
+        {
+          "external_id": "2411.09213",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Conclusion",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Medical Retrieval-Augmented Generation Benchmark",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Discussion",
+          "score": 1.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Medical Retrieval-Augmented Generation Benchmark > Medical QA Dataset",
+          "score": 1.0
+        },
+        {
+          "external_id": "2601.16503",
+          "section": "6 Conclusions",
+          "score": 1.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Experiments",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q039",
+      "kind": "factual",
+      "question": "What are the three core cognitive dimensions tested by the PersonalQA-71-100 benchmark in the evaluation of the EpisTwin architecture?",
+      "retrieval_seconds": 3.759,
+      "retrieved": [
+        {
+          "external_id": "2603.06290",
+          "section": "6 Experimental Evaluation > 6.1 The PersonalQA-71-100 Benchmark",
+          "score": 3.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "7 Results Discussion",
+          "score": 1.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "6 Experimental Evaluation > 6.1 The PersonalQA-71-100 Benchmark",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "6 Experimental Evaluation > 6.3 Evaluation Methodology: LLM-as-a-Judge",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "8 Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "6 Experimental Evaluation > 6.3 Evaluation Methodology: LLM-as-a-Judge",
+          "score": 0.0
+        },
+        {
+          "external_id": "2501.11440",
+          "section": "1. Introduction",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q040",
+      "kind": "factual",
+      "question": "In the paper \"Benchmarking Foundation Models with Retrieval-Augmented Generation in Olympic-Level Physics Problem Solving,\" which multimodal retriever yields the highest pass rate improvement for GPT-4V?",
+      "retrieval_seconds": 2.291,
+      "retrieved": [
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.3 Main Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.3 Main Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.3 Main Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.1 RAG Pipeline",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.3 Main Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.1 RAG Pipeline",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.3 Main Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.4 Ablation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "3 Experiments > 3.3 Main Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "5 Conclusion",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q041",
+      "kind": "factual",
+      "question": "In the paper \"Rethinking Retrieval-Augmented Generation as a Cooperative Decision-Making Problem,\" what is the main objective for optimizing the reranker and generator parameters?",
+      "retrieval_seconds": 3.174,
+      "retrieved": [
+        {
+          "external_id": "2602.18734",
+          "section": "2 Problem Definition",
+          "score": 3.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "3 Method > 3.3 The Optimization > Generator Optimization.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "1 Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "4 Experiments > 4.1 Experimental Setting > Implementation Details",
+          "score": 3.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "3 Method",
+          "score": 2.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "2 Problem Definition",
+          "score": 2.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "3 Method > 3.3 The Optimization",
+          "score": 2.0
+        },
+        {
+          "external_id": "2602.18734",
+          "section": "3 Method > 3.1 The Reranker",
+          "score": 2.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q042",
+      "kind": "factual",
+      "question": "What are some examples of foundational retrieval-augmented models mentioned in the FiD-Light paper's related work section?",
+      "retrieval_seconds": 3.132,
+      "retrieved": [
+        {
+          "external_id": "2209.14290",
+          "section": "2 Background and Related Work > 2.2 Related Work > Retrieval-Enhanced Machine Learning.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2209.14290",
+          "section": "2 Background and Related Work > 2.1 FiD (Fusion in Decoder) with Explanations",
+          "score": 3.0
+        },
+        {
+          "external_id": "2209.14290",
+          "section": "3 FiD-Light with Source Pointers",
+          "score": 3.0
+        },
+        {
+          "external_id": "2209.14290",
+          "section": "1 Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2209.14290",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "4 Related Work > Retrieval-augmented models",
+          "score": 2.0
+        },
+        {
+          "external_id": "2212.08153",
+          "section": "4 Related Work > Efficient retrieval-augmented models",
+          "score": 2.0
+        },
+        {
+          "external_id": "2209.14290",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2607.22841",
+          "section": "2 Related Work > 2.1 Retrieval-Augmented Generation (RAG)",
+          "score": 2.0
+        },
+        {
+          "external_id": "2209.14290",
+          "section": "4 Results",
+          "score": 2.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q043",
+      "kind": "factual",
+      "question": "What are the key modules provided by the RETA-LLM toolkit to support interaction between information retrieval systems and large language models?",
+      "retrieval_seconds": 2.81,
+      "retrieved": [
+        {
+          "external_id": "2306.05212",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "2 RETA-LLM Framework",
+          "score": 3.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "2 RETA-LLM Framework",
+          "score": 3.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "3 RETA-LLM Usage Pipeline",
+          "score": 2.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "2 RETA-LLM Framework",
+          "score": 2.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "5 Conclusion and Future Work",
+          "score": 1.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2306.05212",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2604.16353",
+          "section": "2 Related Work > 2.1 Domain-Specific IR and RAG Systems",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q044",
+      "kind": "factual",
+      "question": "What source and method were used to generate the multiple-choice questions in the TrustMus benchmark for evaluating hallucination in large language models?",
+      "retrieval_seconds": 2.295,
+      "retrieved": [
+        {
+          "external_id": "2409.01864",
+          "section": "3 Musicology Benchmark: TrustMus",
+          "score": 3.0
+        },
+        {
+          "external_id": "2409.01864",
+          "section": "3 Musicology Benchmark: TrustMus",
+          "score": 3.0
+        },
+        {
+          "external_id": "2409.01864",
+          "section": "1 Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2409.01864",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2512.05430",
+          "section": "4. Experiments > 4.1. Benchmarks",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.02228",
+          "section": "I Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2307.04642",
+          "section": "2 Background > Uncertainty Quantification for LLMs.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2409.01864",
+          "section": "3 Musicology Benchmark: TrustMus",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.19281",
+          "section": "C Datasets",
+          "score": 0.0
+        },
+        {
+          "external_id": "2501.05475",
+          "section": "Appendix C C. Assessment using LLM-judge across Various Scenarios",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q045",
+      "kind": "factual",
+      "question": "Which baseline models are used to evaluate the RAC method in the paper 'RAC: Efficient LLM Factuality Correction with Retrieval Augmentation'?",
+      "retrieval_seconds": 2.487,
+      "retrieved": [
+        {
+          "external_id": "2410.15667",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "3 Retrieval Augmented Correction (RAC) > 3.1 Overview",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "3 Retrieval Augmented Correction (RAC)",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "2 Related Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "6 Results",
+          "score": 0.0
+        },
+        {
+          "external_id": "2504.14858",
+          "section": "4 Experiments > 4.1 Experiment Setup",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "3 Retrieval Augmented Correction (RAC) > 3.2 Retrieval",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.16353",
+          "section": "4 Results > 4.2 Evaluated Systems and Metrics",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "10 Conclusion",
+          "score": 0.0
+        }
+      ],
+      "rank": null,
+      "doc_rank": 1
+    },
+    {
+      "id": "q046",
+      "kind": "factual",
+      "question": "What F1 accuracy, inference time, and cost per question does AssistRAG achieve on the HotpotQA benchmark according to the analysis in 'Boosting the Potential of Large Language Models with an Intelligent Information Assistant'?",
+      "retrieval_seconds": 2.24,
+      "retrieved": [
+        {
+          "external_id": "2411.06805",
+          "section": "5 Results and Analysis > 5.2 Analysis",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "5 Results and Analysis > 5.1 Main Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "4 Experimental Setup > 4.3 Implementation Details",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "5 Results and Analysis > 5.2 Analysis",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "5 Results and Analysis > 5.2 Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "5 Results and Analysis > 5.2 Analysis",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "5 Results and Analysis > 5.1 Main Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2411.06805",
+          "section": "Appendix A Appendix / supplemental material > A.2 Error Analysis",
+          "score": 1.0
+        },
+        {
+          "external_id": "2402.07812",
+          "section": "Abstract",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q047",
+      "kind": "factual",
+      "question": "According to the 'Redefining Information Retrieval of Structured Database via Large Language Models' paper, how does the inclusion of examples in fine-tuning data instructions affect the model's training and inference?",
+      "retrieval_seconds": 2.222,
+      "retrieved": [
+        {
+          "external_id": "2405.05508",
+          "section": "I Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.05508",
+          "section": "IV Experiment > IV-D Results > IV-D 4 Analysis of LLM-Preferred Instruction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2404.19543",
+          "section": "5 RALM Enhancement > 5.2 LM Enhancement > 5.2.2 Structural Model Optimization",
+          "score": 1.0
+        },
+        {
+          "external_id": "2405.05508",
+          "section": "IV Experiment > IV-D Results > IV-D 4 Analysis of LLM-Preferred Instruction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2601.07054",
+          "section": "II Related Work > II-B Knowledge Injection in Large Language Models",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.05508",
+          "section": "IV Experiment > IV-D Results > IV-D 3 Comparative Experiments",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.18458",
+          "section": "3 LLM for Data Management > 3-A LLM for Data Manipulation > 3-A 1 LLM for Data Cleaning",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.05508",
+          "section": "IV Experiment > IV-A Datasets",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.17305",
+          "section": "3 Experiment > 3.5 Analysis",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.07812",
+          "section": "4 Related Work",
+          "score": 0.0
+        }
+      ],
+      "rank": 2,
+      "doc_rank": 1
+    },
+    {
+      "id": "q048",
+      "kind": "factual",
+      "question": "According to the appendix of \"Understanding Retrieval-Augmented Task Adaptation for Vision-Language Models,\" what is the main source of noise in text-to-image (T2I) retrieval compared to image-to-image (I2I) retrieval?",
+      "retrieval_seconds": 2.406,
+      "retrieved": [
+        {
+          "external_id": "2405.01468",
+          "section": "3 A Finer-Grained Analysis of Retrieval-Augmented Adaptation > 3.2 Impact of Retrieval Method > A closer look at retrieved samples.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "3 A Finer-Grained Analysis of Retrieval-Augmented Adaptation > 3.2 Impact of Retrieval Method > I2I retrieval consistently outperforms T2I retrieval.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "4 Theoretical Understanding",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "2 Retrieval-Augmented Task Adaptation",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "2 Retrieval-Augmented Task Adaptation > 2.1 Preliminaries",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "Impact Statements",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.01468",
+          "section": "Appendix C Qualitative Analysis of Retrieved Samples",
+          "score": 0.0
+        }
+      ],
+      "rank": 10,
+      "doc_rank": 1
+    },
+    {
+      "id": "q049",
+      "kind": "factual",
+      "question": "According to the QUILL paper, how does retrieval augmentation using document titles and URLs affect the performance of Large Language Models on query understanding tasks?",
+      "retrieval_seconds": 2.29,
+      "retrieved": [
+        {
+          "external_id": "2210.15718",
+          "section": "5 Experiments and Results > 5.1 Effect of Retrieval Augmentation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "5 Experiments and Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "2 Related Work",
+          "score": 2.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "4 QUILL Methodology",
+          "score": 2.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "5 Experiments and Results > 5.4 Examples of Wins/Losses from RA",
+          "score": 2.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "5 Experiments and Results > 5.1 Effect of Retrieval Augmentation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2210.05145",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "Limitations",
+          "score": 2.0
+        },
+        {
+          "external_id": "2505.23052",
+          "section": "Abstract",
+          "score": 2.0
+        }
+      ],
+      "rank": 3,
+      "doc_rank": 1
+    },
+    {
+      "id": "q050",
+      "kind": "factual",
+      "question": "In the paper 'Retrieval-Augmented Multilingual Keyphrase Generation with Retriever-Generator Iterative Training', how does the amount of initial parallel passage data affect the performance of iterative training on the EcommerceMKP dataset?",
+      "retrieval_seconds": 2.172,
+      "retrieved": [
+        {
+          "external_id": "2205.10471",
+          "section": "7 Results and Analyses > 7.2 Effect of Iterative Training > Initializing with Different Amount of Parallel Data",
+          "score": 3.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "7 Results and Analyses > 7.2 Effect of Iterative Training > Quantity and Quality of Pseudo Parallel Passages",
+          "score": 3.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "7 Results and Analyses > 7.2 Effect of Iterative Training > Retrieval Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "7 Results and Analyses > 7.2 Effect of Iterative Training > Quantity and Quality of Pseudo Parallel Passages",
+          "score": 2.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "4 Model > 4.3 Retriever-Generator Iterative Training",
+          "score": 1.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "Appendix A Appendix > A.1 Implementation Details",
+          "score": 1.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "4 Model > 4.3 Retriever-Generator Iterative Training",
+          "score": 1.0
+        },
+        {
+          "external_id": "2205.10471",
+          "section": "4 Model > 4.3 Retriever-Generator Iterative Training",
+          "score": 1.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q051",
+      "kind": "factual",
+      "question": "In the evaluation of chunking strategies for Retrieval-Augmented Generation on academic texts, what was the failure rate of the faithfulness calculation compared to other metrics?",
+      "retrieval_seconds": 2.05,
+      "retrieved": [
+        {
+          "external_id": "2607.01852",
+          "section": "IV Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2607.29402",
+          "section": "V Results with analysis",
+          "score": 1.0
+        },
+        {
+          "external_id": "2607.01852",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.01852",
+          "section": "I Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.01852",
+          "section": "V Conclusion & Future Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.24402",
+          "section": "3 Method > 3.1 Dataset and Evaluation Framework > 3.1.2 RAGChecker: A Framework for Fine-Grained Evaluation",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.24767",
+          "section": "",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.01852",
+          "section": "IV Results > Discussion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.29402",
+          "section": "I Introduction",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q052",
+      "kind": "factual",
+      "question": "What performance improvements does R1-Searcher++ achieve over strong baselines and vanilla RL-based approaches when tested with Qwen-2.5-7B-Instruct?",
+      "retrieval_seconds": 2.447,
+      "retrieved": [
+        {
+          "external_id": "2505.17005",
+          "section": "1 Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "5 Experiments > 5.2 Main Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "6 Further Analysis > 6.2 Online Search",
+          "score": 3.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "5 Experiments > 5.1 Experimental Settings",
+          "score": 1.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "6 Further Analysis > 6.4 Case Study",
+          "score": 1.0
+        },
+        {
+          "external_id": "2511.09109",
+          "section": "5 Experimental Results > 5.1 Main results",
+          "score": 1.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "6 Further Analysis > 6.3 Analysis of Knowledge Acquisition",
+          "score": 1.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "6 Further Analysis > 6.3 Analysis of Knowledge Acquisition",
+          "score": 1.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "4 Experiment Settings > 4.2 Models and Baselines > RL-Based Online Retrieval.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.17005",
+          "section": "5 Experiments > 5.1 Experimental Settings",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q053",
+      "kind": "factual",
+      "question": "What privacy mechanism does C-FedRAG (Addison et al., 2024) use to secure clinical question answering on MKP-QA?",
+      "retrieval_seconds": 2.725,
+      "retrieved": [
+        {
+          "external_id": "2505.18906",
+          "section": "Appendix A Extended Resources and Comparative Synthesis > A.1 Benchmarks and Toolkits",
+          "score": 3.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "Appendix B Comparative Synthesis of Federated Studies",
+          "score": 2.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "3 Analysis of Recent Studies > 3.1 Research Focus",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "3 Analysis of Recent Studies > 3.3 Application Domains and Use Cases",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.07812",
+          "section": "2 Preliminaries",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "4 Research Activity and Publication Trends > 4.1 Privacy & Security",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "3 Analysis of Recent Studies > 3.2 Contribution Type",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.07812",
+          "section": "4 Related Work > 4.1 Experimental setup",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "4 Research Activity and Publication Trends",
+          "score": 0.0
+        }
+      ],
+      "rank": 3,
+      "doc_rank": 1
+    },
+    {
+      "id": "q054",
+      "kind": "factual",
+      "question": "In the experiments comparing cost-aware optimization approaches based on Search-R1 (Jin et al., 2025), how does the performance of PPO and GRPO differ when using Qwen 2.5 models with 7 billion and 3 billion parameters?",
+      "retrieval_seconds": 2.369,
+      "retrieved": [
+        {
+          "external_id": "2510.15719",
+          "section": "4. Experiments > 4.3. Results and Discussion > Comparison with the Baselines.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "3. Cost-Aware Dynamic Retrieval-Augmented Reasoning > 3.1. Background: Training Retrieval-Augmented Reasoning Models with Reinforcement Learning",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "4. Experiments > 4.3. Results and Discussion > The Impact of Cost Penalization.",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "3. Cost-Aware Dynamic Retrieval-Augmented Reasoning > 3.3. Cost-Aware Advantage Function for Improved Efficiency",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "5. Case Studies",
+          "score": 1.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "4. Experiments > 4.3. Results and Discussion > The Impact of Cost Penalization.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "4. Experiments > 4.1. Data",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "4. Experiments > 4.3. Results and Discussion > Comparison with the Baselines.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.10504",
+          "section": "3 Experiment > 3.3 Main Results",
+          "score": 0.0
+        },
+        {
+          "external_id": "2602.19317",
+          "section": "3. Methodology > 3.5. Summary",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q055",
+      "kind": "factual",
+      "question": "What are the four state-of-the-art models compared against the End-to-End Trainable Retrieval-Augmented Generation method for relation extraction in the paper \"End-to-End Trainable Retrieval-Augmented Generation for Relation Extraction\"?",
+      "retrieval_seconds": 2.632,
+      "retrieved": [
+        {
+          "external_id": "2406.03790",
+          "section": "IV Evaluation of Relation Extraction Performance > IV-A Experimental Settings",
+          "score": 3.0
+        },
+        {
+          "external_id": "2406.03790",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.03790",
+          "section": "I Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.03790",
+          "section": "VI Conclusions",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.03790",
+          "section": "IV Evaluation of Relation Extraction Performance",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.03790",
+          "section": "VI Conclusions",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.03790",
+          "section": "IV Evaluation of Relation Extraction Performance > IV-C Ablation Studies",
+          "score": 0.0
+        },
+        {
+          "external_id": "2202.01110",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.03790",
+          "section": "III Methodology",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.06345",
+          "section": "1 Introduction",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q056",
+      "kind": "factual",
+      "question": "In the paper \"Observations on Building RAG Systems for Technical Documents,\" which embedding model is used for the entire IEEE document excluding tables and captions?",
+      "retrieval_seconds": 2.138,
+      "retrieved": [
+        {
+          "external_id": "2508.11386",
+          "section": "3 System setup > 3.2 Pipeline overview > 3.2.2 The retrieval system",
+          "score": 3.0
+        },
+        {
+          "external_id": "2404.00657",
+          "section": "2 Experimental Setup",
+          "score": 2.0
+        },
+        {
+          "external_id": "2404.00657",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.24402",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "6. Experiments > 6.1. Experimental Setup > 6.1.1. RAG System Configuration",
+          "score": 0.0
+        },
+        {
+          "external_id": "2404.00657",
+          "section": "Appendix B Appendix B",
+          "score": 0.0
+        },
+        {
+          "external_id": "2405.13792",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2404.00657",
+          "section": "4 Conclusions and Future Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "Limitations > Construct Validity",
+          "score": 0.0
+        },
+        {
+          "external_id": "2404.00657",
+          "section": "4 Conclusions and Future Work > URM Statement",
+          "score": 0.0
+        }
+      ],
+      "rank": 2,
+      "doc_rank": 2
+    },
+    {
+      "id": "q057",
+      "kind": "factual",
+      "question": "In the paper \"Who Stole Your Data? A Method for Detecting Unauthorized RAG Theft,\" how is the expected number of green tokens in the dual-layered watermarking system mathematically bounded?",
+      "retrieval_seconds": 2.156,
+      "retrieved": [
+        {
+          "external_id": "2510.07728",
+          "section": "5. Mathematical Analysis of the Dual-Layered Watermarking System > 5.2. Detection Sensitivity Analysis",
+          "score": 3.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "6. Experiments > 6.2. Robustness of RAG Plagiarism Detection",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "6. Experiments > 6.3. Red-Green Token Distribution Detection Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "4. Methodology > 4.1. Dual-Layered Watermarking System > 4.1.2. Layer 2: Red-Green Token Distribution Manipulation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "6. Experiments > 6.5. Adversarial Experiments",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "6. Experiments > 6.4. Comparison Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "7. Conclusion",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "6. Experiments > 6.1. Experimental Setup > 6.1.3. Baselines",
+          "score": 2.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "5. Mathematical Analysis of the Dual-Layered Watermarking System > 5.2. Detection Sensitivity Analysis",
+          "score": 1.0
+        },
+        {
+          "external_id": "2510.07728",
+          "section": "5. Mathematical Analysis of the Dual-Layered Watermarking System > 5.3. Impact on Text Quality",
+          "score": 1.0
+        }
+      ],
+      "rank": 9,
+      "doc_rank": 1
+    },
+    {
+      "id": "q058",
+      "kind": "factual",
+      "question": "In the paper \"Improving Retrieval-Augmented Large Language Models via Data Importance Learning,\" how is the exact gradient of the weights for the K-Nearest Neighbor classifier computed when the retrieval corpus is generated from multiple data sources?",
+      "retrieval_seconds": 2.212,
+      "retrieved": [
+        {
+          "external_id": "2307.03027",
+          "section": "2 Algorithms for Deriving Gradients > 2.4 Projected Gradient Descent for Weights on a Data Source Level",
+          "score": 3.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "Appendix C Exact Gradients for a Grouped Retrieval Corpus",
+          "score": 2.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "2 Algorithms for Deriving Gradients > 2.4 Projected Gradient Descent for Weights on a Data Source Level",
+          "score": 1.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "2 Algorithms for Deriving Gradients",
+          "score": 0.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "2 Algorithms for Deriving Gradients > 2.1 Exact Gradient Calculation for Models with an Additive Utility Function",
+          "score": 0.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "4 Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2307.03027",
+          "section": "3 Experimental Evaluation",
+          "score": 0.0
+        }
+      ],
+      "rank": 3,
+      "doc_rank": 1
+    },
+    {
+      "id": "q059",
+      "kind": "factual",
+      "question": "What are the main contributions of the paper \"Abductive Inference in Retrieval-Augmented Language Models: Generating and Validating Missing Premises\" regarding abductive inference in RAG?",
+      "retrieval_seconds": 2.026,
+      "retrieved": [
+        {
+          "external_id": "2511.04020",
+          "section": "I Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "I Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "V Conclusion",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "II Related Work > II-E Premise Validation and Faithfulness",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "IV Results and Discussion > IV-D Discussion",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "II Related Work > II-A Retrieval-Augmented Generation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "IV Results and Discussion > IV-C Case Study",
+          "score": 3.0
+        },
+        {
+          "external_id": "2511.04020",
+          "section": "II Related Work > II-D Theoretical Perspectives",
+          "score": 3.0
+        },
+        {
+          "external_id": "2409.03759",
+          "section": "Abstract",
+          "score": 3.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "q060",
+      "kind": "factual",
+      "question": "How does CalibRAG perform compared to Cross-encoder and LLM-rerank on the HotpotQA dataset in terms of AUROC and ECE?",
+      "retrieval_seconds": 2.27,
+      "retrieved": [
+        {
+          "external_id": "2411.08891",
+          "section": "4 Experiments > 4.1 Main Results > Comparison with uncertainty calibartion baselines.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "Appendix D Additional experiments > D.5 Ablation on Fine-Tuning for Reranking Baselines",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "Appendix D Additional experiments > D.2 Evaluation on BEIR Benchmark",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "4 Experiments > 4.1 Main Results > Comparison with reranking and robust RAG baselines.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "4 Experiments > Baselines.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "4 Experiments > 4.1 Main Results > Comparison with uncertainty calibartion baselines.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "Appendix D Additional experiments > D.7 Using Uncertainty baseline confidence scores for reranking",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "Appendix D Additional experiments > D.7 Using Uncertainty baseline confidence scores for reranking",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.08891",
+          "section": "Appendix D Additional experiments > D.6 Ablation on CalibRAG without reranking",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.01717",
+          "section": "3 Experiment&Result > 3.3 Experimental setup > 3.3.1 Custom Scoring agent vs. Reranker",
+          "score": 0.0
+        }
+      ],
+      "rank": 1,
+      "doc_rank": 1
+    },
+    {
+      "id": "u001",
+      "kind": "unanswerable",
+      "question": "What is the number of diverse user scenarios generated in the study evaluating retrieval-augmented large language models for cannabidiol guidance?",
+      "retrieval_seconds": 2.56,
+      "retrieved": [
+        {
+          "external_id": "2502.19779",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2502.19779",
+          "section": "7 Limitations",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.19779",
+          "section": "8 Ethics Statement",
+          "score": 0.0
+        },
+        {
+          "external_id": "2309.01431",
+          "section": "Related work > Retrieval-augmented models",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.19779",
+          "section": "4 Experimental Setup > 4.1 Datasets > Overview of QA Datasets",
+          "score": 0.0
+        },
+        {
+          "external_id": "2506.21931",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.19779",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.20245",
+          "section": "Limitations",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.19779",
+          "section": "4 Experimental Setup > 4.3 Evaluation Metrics",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.00919",
+          "section": "5 Conclusion",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "u002",
+      "kind": "unanswerable",
+      "question": "What is the main contribution of the two-stage consistency learning approach proposed in the paper for retrieval-augmented language models?",
+      "retrieval_seconds": 2.109,
+      "retrieved": [
+        {
+          "external_id": "2512.17194",
+          "section": "Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "3 Method > 3.1 Preliminaries",
+          "score": 1.0
+        },
+        {
+          "external_id": "2405.20680",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2304.06762",
+          "section": "2 Key Findings",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "7 Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2512.17194",
+          "section": "Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "2. Related Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.15718",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2403.03187",
+          "section": "3 How Can Retrieval-Augmented LMs Address These Issues? > 3.1 Effectiveness of Retrieval-Augmented LMs > W3: Enabling flexible opt-in of sequences .",
+          "score": 0.0
+        },
+        {
+          "external_id": "2308.07922",
+          "section": "1 Introduction",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "u003",
+      "kind": "unanswerable",
+      "question": "What accuracy did the best-performing retrieval-augmented medical question answering configuration achieve on the MedQA USMLE benchmark in the study?",
+      "retrieval_seconds": 2.271,
+      "retrieved": [
+        {
+          "external_id": "2309.16035",
+          "section": "Experiments > Main Experiment Results",
+          "score": 3.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Medical Retrieval-Augmented Generation Benchmark > Medical QA Dataset > MedQA",
+          "score": 0.0
+        },
+        {
+          "external_id": "2309.16035",
+          "section": "Experiments > Experiment Setting > MedQA-USMILE Dataset",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Appendix A Experiment Details > Step-by-step Reasoning Examples",
+          "score": 0.0
+        },
+        {
+          "external_id": "2509.10467",
+          "section": "4 Experiment and Results > 4.2 Performance Comparison > Ablation Study.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.06345",
+          "section": "Appendix H MedWiki > MedQA vs. MedWiki > Quantitative comparison",
+          "score": 0.0
+        },
+        {
+          "external_id": "2508.12282",
+          "section": "Technical Validation > Validation of Direct LLM Performance",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Appendix A Experiment Details > Step-by-step Reasoning Examples",
+          "score": 0.0
+        },
+        {
+          "external_id": "2210.06345",
+          "section": "6 Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2411.09213",
+          "section": "Appendix A Experiment Details > Step-by-step Reasoning Examples",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "u004",
+      "kind": "unanswerable",
+      "question": "On how many knowledge-intensive language datasets was the E2E-AFG model evaluated, and how did it perform compared to baseline models?",
+      "retrieval_seconds": 2.022,
+      "retrieved": [
+        {
+          "external_id": "2603.17677",
+          "section": "5 Experiments and Results > 5.1 Experimental Protocol > Datasets and evaluation metrics.",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.19893",
+          "section": "4 Experiments > 4.1 Experimental Setup > 4.1.1 Tasks and Datasets",
+          "score": 2.0
+        },
+        {
+          "external_id": "2502.18536",
+          "section": "4 Experiment > 4.6 State-of-the-Art Performance Comparison",
+          "score": 2.0
+        },
+        {
+          "external_id": "2210.12887",
+          "section": "4 Experiments > 4.3 Automatic Evaluation > 4.3.1 RACo v.s. Baseline Methods",
+          "score": 2.0
+        },
+        {
+          "external_id": "2404.03514",
+          "section": "4 Experimental Results",
+          "score": 2.0
+        },
+        {
+          "external_id": "2404.03514",
+          "section": "4 Experimental Results",
+          "score": 1.0
+        },
+        {
+          "external_id": "2502.18536",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2403.14403",
+          "section": "4 Experimental Setups",
+          "score": 1.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "6. Results and Analysis > 6.2. The Study of Monitoring Phase",
+          "score": 1.0
+        },
+        {
+          "external_id": "2601.06551",
+          "section": "V Results and Analysis > V-A Main Performance",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "id": "u005",
+      "kind": "unanswerable",
+      "question": "What mechanism does the proposed retrieval augmented generation method introduce to transform retrieved evidence into a core control factor in generation?",
+      "retrieval_seconds": 16.592,
+      "retrieved": [
+        {
+          "external_id": "2604.16313",
+          "section": "3 Method > 3.3 Self-Reflective Evidence Controller",
+          "score": 3.0
+        },
+        {
+          "external_id": "2501.05475",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2601.06551",
+          "section": "II Related Work > II-A Retrieval-Augmented Generation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2604.16313",
+          "section": "2 Related Work > 2.3 Multimodal Generation",
+          "score": 1.0
+        },
+        {
+          "external_id": "2604.16313",
+          "section": "1 Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2604.16313",
+          "section": "Abstract",
+          "score": 1.0
+        },
+        {
+          "external_id": "2604.16313",
+          "section": "5 Conclusion",
+          "score": 1.0
+        },
+        {
+          "external_id": "2501.05475",
+          "section": "Methodology > Evidence Collation and Discovery > Evidence Discovery",
+          "score": 1.0
+        },
+        {
+          "external_id": "2501.05475",
+          "section": "Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "1 Introduction",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "id": "u006",
+      "kind": "unanswerable",
+      "question": "What are some of the key application domains for Retrieval-Augmented Generation (RAG) models discussed in the survey?",
+      "retrieval_seconds": 2.63,
+      "retrieved": [
+        {
+          "external_id": "2404.19543",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2404.19543",
+          "section": "1 Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "2 Related Work > 2.1 Retrieval-Augmented Generation (RAG)",
+          "score": 2.0
+        },
+        {
+          "external_id": "2501.13958",
+          "section": "I Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2501.13958",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "1. Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2501.13958",
+          "section": "VII Conclusion > -D Traditional RAG Pipeline > -D 2 Knowledge retrieval",
+          "score": 2.0
+        },
+        {
+          "external_id": "2505.18906",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2311.04177",
+          "section": "2 Prior Literature > 2.2 Retrieval Augmented Generation",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "1 Introduction",
+          "score": 2.0
+        }
+      ]
+    },
+    {
+      "id": "u007",
+      "kind": "unanswerable",
+      "question": "What is the key mechanism by which Retrieval Augmented Rejection (RAR) identifies and rejects harmful user queries?",
+      "retrieval_seconds": 1.966,
+      "retrieved": [
+        {
+          "external_id": "2403.14403",
+          "section": "Ethics Statement",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "3 Method > 3.1 Background and Threat Model > RAG Pipeline.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.5 Potential Mitigation > Re-ranking.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2602.19317",
+          "section": "1. Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.11794",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG?",
+          "score": 0.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "3. Components & Technologies of MRAG > 3.3. Multimodal Retrieval > 3.3.1. RETRIEVER",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "4 RQ1: Can we extract private data from the external retrieval database in RAG? > 4.5 Potential Mitigation > Set Distance Threshold.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.19281",
+          "section": "D Technical Details > D.4 RAG Setup > FiD (Fusion-in-Decoder).",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "u008",
+      "kind": "unanswerable",
+      "question": "What accuracy did the Retrieval Augmented Generation (RAG) system achieve in generating relevant suggestions according to the paper?",
+      "retrieval_seconds": 2.209,
+      "retrieved": [
+        {
+          "external_id": "2506.21931",
+          "section": "1. Introduction",
+          "score": 2.0
+        },
+        {
+          "external_id": "2601.06551",
+          "section": "V Results and Analysis > V-A Main Performance",
+          "score": 2.0
+        },
+        {
+          "external_id": "2601.06551",
+          "section": "VII Conclusion",
+          "score": 2.0
+        },
+        {
+          "external_id": "2402.16893",
+          "section": "2 Related Work > 2.1 Retrieval-Augmented Generation (RAG)",
+          "score": 1.0
+        },
+        {
+          "external_id": "2506.21931",
+          "section": "1. Introduction",
+          "score": 1.0
+        },
+        {
+          "external_id": "2607.29402",
+          "section": "I Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2406.13249",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2412.15404",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2509.21336",
+          "section": "2 Related Work > 2.1 Bottlenecks and Drivers for RAG System Improvement",
+          "score": 0.0
+        },
+        {
+          "external_id": "2409.03759",
+          "section": "6. Conclusion",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "u009",
+      "kind": "unanswerable",
+      "question": "What is the mean token cost achieved by the Reasoner-Executor-Synthesizer (RES) architecture across 100 benchmark runs on the ScholarSearch system?",
+      "retrieval_seconds": 2.006,
+      "retrieved": [
+        {
+          "external_id": "2509.12743",
+          "section": "4 Computational Assessment > 4.2 Experiments",
+          "score": 3.0
+        },
+        {
+          "external_id": "2509.12743",
+          "section": "4 Computational Assessment > 4.2 Experiments",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "3. Cost-Aware Dynamic Retrieval-Augmented Reasoning > 3.3. Cost-Aware Advantage Function for Improved Efficiency",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.24402",
+          "section": "4 Results and Analysis > 4.1 Overall Performance Comparison",
+          "score": 0.0
+        },
+        {
+          "external_id": "2509.13683",
+          "section": "Appendix A Token Cost Efficiency Analysis",
+          "score": 0.0
+        },
+        {
+          "external_id": "2607.22841",
+          "section": "5 Discussion > Why RADS outperforms generation in this setting",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "4. Experiments > 4.3. Results and Discussion > The Impact of Cost Penalization.",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.15719",
+          "section": "1. Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "6 Experimental Evaluation > 6.1 The PersonalQA-71-100 Benchmark",
+          "score": 0.0
+        },
+        {
+          "external_id": "2407.03227",
+          "section": "Appendix C Implementation Details > C.4 Experiments with Open-Source LLMs",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "u010",
+      "kind": "unanswerable",
+      "question": "What novel hierarchical framework does the paper introduce for simulating stylized human-scene interactions, and what are its two main components?",
+      "retrieval_seconds": 2.14,
+      "retrieved": [
+        {
+          "external_id": "2502.13847",
+          "section": "Abstract",
+          "score": 3.0
+        },
+        {
+          "external_id": "2502.13847",
+          "section": "Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.13847",
+          "section": "Conclusion",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.13847",
+          "section": "Related Work > Long-term and Short-term Memory Theory",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "1 Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "5 EpisTwin Reasoning Engine > 5.1 Agentic Orchestration",
+          "score": 0.0
+        },
+        {
+          "external_id": "2604.16313",
+          "section": "3 Method > 3.1 Task Formulation",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.13847",
+          "section": "Method > Dynamic Historical Information Database",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.11626",
+          "section": "1. Introduction",
+          "score": 0.0
+        },
+        {
+          "external_id": "2603.06290",
+          "section": "6 Experimental Evaluation > 6.2 Implementation Details",
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "u011",
+      "kind": "unanswerable",
+      "question": "What is the name of the benchmark introduced in the ORIG paper for evaluating factual image generation, and how many categories does it span?",
+      "retrieval_seconds": 1.403,
+      "retrieved": [
+        {
+          "external_id": "2502.17297",
+          "section": "3. M 2 RAG Benchmark for Multi-Modal Retrieval-Augmented Generation",
+          "score": 3.0
+        },
+        {
+          "external_id": "2405.02228",
+          "section": "I Introduction",
+          "score": 3.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "4. Dataset for MRAG > 4.2. Dataset for Generation > 4.2.1. Comprehensive",
+          "score": 2.0
+        },
+        {
+          "external_id": "2502.17297",
+          "section": "Abstract",
+          "score": 2.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "4. Dataset for MRAG > 4.1. Dataset for Retrieval & Generation",
+          "score": 1.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "4. Dataset for MRAG > 4.2. Dataset for Generation",
+          "score": 1.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "4. Dataset for MRAG > 4.2. Dataset for Generation > 4.2.3. Structural Document",
+          "score": 1.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "4. Dataset for MRAG > 4.2. Dataset for Generation > 4.2.8. Multidisciplinary",
+          "score": 1.0
+        },
+        {
+          "external_id": "2504.08748",
+          "section": "4. Dataset for MRAG > 4.2. Dataset for Generation > 4.2.8. Multidisciplinary",
+          "score": 1.0
+        },
+        {
+          "external_id": "2502.17297",
+          "section": "5. Experimental Methodology",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "id": "u012",
+      "kind": "unanswerable",
+      "question": "What accuracy improvement does MultiFinRAG achieve over ChatGPT-4o (free-tier) on complex financial QA tasks?",
+      "retrieval_seconds": 2.007,
+      "retrieved": [
+        {
+          "external_id": "2502.01142",
+          "section": "Appendix C Detailed Analysis > C.3 Performance against Strong Baseline Models",
+          "score": 0.0
+        },
+        {
+          "external_id": "2502.01113",
+          "section": "4 Experiment > 4.3 Question Answering Performance",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.01717",
+          "section": "3 Experiment&Result > 3.3 Experimental setup",
+          "score": 0.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "Abstract",
+          "score": 0.0
+        },
+        {
+          "external_id": "2510.24402",
+          "section": "4 Results and Analysis",
+          "score": 0.0
+        },
+        {
+          "external_id": "2506.16037",
+          "section": "II Related Work",
+          "score": 0.0
+        },
+        {
+          "external_id": "2402.01717",
+          "section": "2 Method > 2.3 Dual-track Retrieval: Leveraging answer of Fine-tuned LLM for Document retrieval. > 2.3.1 Fine tuning process",
+          "score": 0.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "4 Experiments > 4.1 Experimental Setups",
+          "score": 0.0
+        },
+        {
+          "external_id": "2410.15667",
+          "section": "7 Ablation Experiments > 7.2 Different LLMs Capabilities",
+          "score": 0.0
+        },
+        {
+          "external_id": "2512.10996",
+          "section": "2 Related Work > 2.2 Retrieval-Augmented Generation",
+          "score": 0.0
+        }
+      ]
+    }
+  ]
+}

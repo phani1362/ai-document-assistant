@@ -1,9 +1,10 @@
 """Retrieval over child chunks, and expansion of hits to their parent sections."""
 
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
-from sqlalchemy import select, text
+from sqlalchemy import Text, cast, func, select, text
+from sqlalchemy.dialects.postgresql import TSQUERY
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import get_settings
@@ -73,6 +74,80 @@ async def dense_search(
         )
         for chunk, title, external_id, chunk_distance in rows
     ]
+
+
+def _any_term_query(query: str) -> object:
+    """Full-text query matching chunks that contain *any* of the question's terms.
+
+    `plainto_tsquery` stems words and drops stopwords but ANDs every term, which almost
+    never matches a whole natural-language question. Turning the ANDs into ORs and
+    letting ranking reward chunks that match more (and rarer) terms behaves like BM25.
+    """
+    and_query = cast(func.plainto_tsquery("english", query), Text)
+    return cast(func.replace(and_query, " & ", " | "), TSQUERY)
+
+
+async def keyword_search(session: AsyncSession, query: str, k: int) -> list[RetrievedChunk]:
+    """Top-k child chunks by full-text relevance (GIN index over heading path + text)."""
+    tsquery = _any_term_query(query)
+    # Normalization 1 divides by log(document length) so long chunks don't win by size.
+    rank = func.ts_rank(Chunk.search_vector, tsquery, 1)
+    rows = await session.execute(
+        select(Chunk, Document.title, Document.external_id, rank.label("rank"))
+        .join(Document, Document.id == Chunk.document_id)
+        .where(
+            Chunk.level == ChunkLevel.CHILD,
+            Document.status == DocumentStatus.READY,
+            Chunk.search_vector.op("@@")(tsquery),
+        )
+        .order_by(rank.desc())
+        .limit(k)
+    )
+    return [
+        RetrievedChunk(
+            chunk_id=chunk.id,
+            parent_id=chunk.parent_id,
+            document_id=chunk.document_id,
+            external_id=external_id,
+            title=title,
+            section_path=chunk.section_path,
+            text=chunk.text,
+            score=float(chunk_rank),
+        )
+        for chunk, title, external_id, chunk_rank in rows
+    ]
+
+
+def reciprocal_rank_fusion(
+    rankings: list[list[RetrievedChunk]], *, k: int = 60
+) -> list[RetrievedChunk]:
+    """Merge rankings by summing 1 / (k + rank) for each list a chunk appears in.
+
+    Uses ranks, not scores: cosine similarity and ts_rank live on unrelated scales, so
+    adding them would need per-corpus tuning. k=60 is the standard constant from the
+    original RRF paper; it damps the advantage of the very top ranks.
+    """
+    fused: dict[uuid.UUID, tuple[RetrievedChunk, float]] = {}
+    for ranking in rankings:
+        for rank, chunk in enumerate(ranking, start=1):
+            best, score = fused.get(chunk.chunk_id, (chunk, 0.0))
+            fused[chunk.chunk_id] = (best, score + 1.0 / (k + rank))
+    ordered = sorted(fused.values(), key=lambda item: item[1], reverse=True)
+    return [replace(chunk, score=score) for chunk, score in ordered]
+
+
+async def hybrid_search(
+    session: AsyncSession, embedder: Embedder, query: str, k: int, *, candidates: int = 30
+) -> list[RetrievedChunk]:
+    """Dense + keyword retrieval fused with RRF.
+
+    Dense search understands paraphrase ("how big is the model" ~ "parameter count");
+    keyword search nails exact names, numbers and acronyms (ORPHEAS, GRPO, HotpotQA)
+    that embeddings blur together. Fusing them recovers what either one misses.
+    """
+    dense = await dense_search(session, embedder, query, candidates)
+    keyword = await keyword_search(session, query, candidates)
+    return reciprocal_rank_fusion([dense, keyword])[:k]
 
 
 async def expand_to_parents(
