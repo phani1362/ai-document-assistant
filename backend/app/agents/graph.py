@@ -202,9 +202,10 @@ def build_graph(deps: AgentDeps) -> CompiledStateGraph[Any, Any, Any, Any]:
             system=SYNTHESIZER_SYSTEM,
             schema=DraftAnswer,
         )
+        count = len(draft.sentences)
         return {
             "draft": draft,
-            "steps": _step("synthesizer", f"Drafted {len(draft.sentences)} sentences"),
+            "steps": _step("synthesizer", f"Drafted {count} sentence{'' if count == 1 else 's'}"),
         }
 
     async def verifier(state: AgentState) -> dict[str, Any]:

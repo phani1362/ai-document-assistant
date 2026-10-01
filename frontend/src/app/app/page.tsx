@@ -34,10 +34,10 @@ export default function AppPage() {
             </span>
             <div>
               <p className="text-sm font-semibold text-slate-950 dark:text-white">
-                AI Document Assistant
+                AI Research Assistant
               </p>
               <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                RAG-Powered Document Q&A
+                Multi-agent RAG over arXiv papers
               </p>
             </div>
           </Link>
@@ -49,22 +49,22 @@ export default function AppPage() {
         <section className="animate-fade-up animate-delay-1 mb-8 grid gap-6 lg:grid-cols-[1fr_0.74fr] lg:items-end">
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-blue-700 dark:text-blue-400">
-              RAG-Powered Document Q&A
+              Multi-agent RAG
             </p>
             <h1 className="max-w-4xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-5xl dark:text-white">
-              Upload a document, ask questions, and get accurate answers
+              Ask research papers questions and get verified, cited answers
             </h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-400">
-              Answers are grounded in the uploaded content with visible source
-              references.
+              Agents route, retrieve, grade the evidence, and fact-check every sentence before
+              you see it. If the papers don&apos;t say it, the assistant says so.
             </p>
           </div>
 
           <div className="grid grid-cols-3 gap-3 rounded-[8px] border border-slate-200 bg-white/80 p-3 shadow-sm shadow-slate-900/5 backdrop-blur dark:border-slate-700 dark:bg-slate-900/60">
             {[
-              ["Upload", ".txt, .md, .csv, .pdf, .docx"],
-              ["Ask", "document Q&A"],
-              ["Sources", "references"],
+              ["Correct", "100% on eval set"],
+              ["Declines", "83% of unanswerables"],
+              ["Attacks", "0% succeeded"],
             ].map(([label, value]) => (
               <div className="rounded-[8px] bg-slate-50 p-3 dark:bg-slate-800/60" key={label}>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">

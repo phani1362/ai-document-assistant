@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "RAG-Powered Document Q&A",
+  title: "AI Research Assistant: multi-agent RAG",
   description:
-    "Upload a document, ask questions, and get accurate answers grounded in the uploaded content with visible source references.",
+    "Ask questions about arXiv papers on retrieval-augmented generation and get verified answers with citations to the exact sections used.",
 };
 
 export default function RootLayout({

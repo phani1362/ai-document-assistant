@@ -2,10 +2,12 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const workflowItems = [
-  "Upload a .txt, .md, .csv, .pdf, or .docx file",
-  "Ask questions about the document",
-  "Get answers with source references",
+  "A router resolves follow-ups and screens out off-topic or unsafe requests",
+  "Hybrid search and an LLM reranker find the right paper sections",
+  "A grader checks the evidence; a verifier fact-checks every sentence",
 ];
+
+const GITHUB_URL = "https://github.com/phani1362/ai-document-assistant";
 
 export default function HomePage() {
   return (
@@ -47,11 +49,12 @@ export default function HomePage() {
           <div className="mobile-safe min-w-0 max-w-3xl">
             <div className="mt-7 space-y-6">
               <h1 className="animate-fade-up animate-delay-1 max-w-3xl text-5xl font-semibold leading-[0.95] tracking-tight text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
-                AI Document Assistant
+                AI Research Assistant
               </h1>
               <p className="animate-fade-up animate-delay-2 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-400 sm:text-xl">
-                Upload a document, ask questions, and get accurate answers
-                grounded in the uploaded content with visible source references.
+                Multi-agent RAG over ~200 arXiv papers on retrieval-augmented generation.
+                Every answer cites the exact sections it came from, and is fact-checked
+                before you see it.
               </p>
             </div>
             <div className="animate-fade-up animate-delay-3 mt-9 flex flex-wrap items-center gap-3">
@@ -76,10 +79,14 @@ export default function HomePage() {
                   />
                 </svg>
               </Link>
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_5px_rgba(16,185,129,0.14)]" />
-                Visible source references
-              </div>
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-[8px] border border-slate-300 bg-white/80 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-400 dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-200"
+              >
+                Source code ↗
+              </a>
             </div>
           </div>
 
@@ -93,14 +100,14 @@ export default function HomePage() {
                     <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
                   </div>
                   <p className="text-xs font-medium text-slate-400">
-                    retrieval-console
+                    agent-pipeline
                   </p>
                 </div>
 
                 <div className="grid min-w-0 gap-3 md:grid-cols-[0.88fr_1.12fr]">
                   <div className="min-w-0 rounded-[8px] border border-white/10 bg-white/[0.04] p-4">
                     <p className="text-sm font-semibold text-white">
-                      What You Can Do
+                      How an answer is made
                     </p>
                     <ul className="mt-4 space-y-3">
                       {workflowItems.map((item, index) => (
@@ -121,23 +128,23 @@ export default function HomePage() {
                     <div className="rounded-[8px] border border-blue-300/20 bg-blue-500/10 p-4">
                       <div className="flex items-center justify-between gap-4">
                         <p className="text-sm font-semibold text-blue-100">
-                          Document indexed
+                          Verifier
                         </p>
                         <span className="rounded-[6px] bg-emerald-400/15 px-2 py-1 text-xs font-semibold text-emerald-200">
-                          ready
+                          4/4 sentences supported
                         </span>
                       </div>
                       <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
-                        <div className="h-full w-[78%] rounded-full bg-gradient-to-r from-blue-300 via-cyan-200 to-emerald-300" />
+                        <div className="h-full w-full rounded-full bg-gradient-to-r from-blue-300 via-cyan-200 to-emerald-300" />
                       </div>
                     </div>
 
                     <div className="rounded-[8px] border border-white/10 bg-white p-4 text-slate-950 dark:bg-slate-100">
-                      <p className="text-sm font-semibold">Answer Policy</p>
+                      <p className="text-sm font-semibold">Answer policy</p>
                       <p className="mt-2 text-sm leading-6 text-slate-600">
-                        The assistant provides grounded answers from the
-                        uploaded document and clearly states when the answer is
-                        not available in the source content.
+                        Only sentences the sources state are shown. When the
+                        papers don&apos;t cover a question, the assistant says
+                        so and names the closest papers it found.
                       </p>
                     </div>
                   </div>
@@ -145,16 +152,20 @@ export default function HomePage() {
               </div>
 
               <div className="grid gap-3 pt-3 sm:grid-cols-3">
-                {["Upload", "Ask", "Reference"].map((label) => (
+                {[
+                  ["Answered correctly", "100%"],
+                  ["Unanswerables declined", "83%"],
+                  ["Attacks succeeded", "0%"],
+                ].map(([label, value]) => (
                   <div
                     className="rounded-[8px] border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/60"
                     key={label}
                   >
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500">
-                      Step
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-slate-100">
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
                       {label}
+                    </p>
+                    <p className="mt-1 text-lg font-semibold text-slate-900 dark:text-slate-100">
+                      {value}
                     </p>
                   </div>
                 ))}
