@@ -1,19 +1,17 @@
 {
   "name": "ai-document-assistant",
   "version": "1.0.0",
-  "description": "Intelligent document assistant powered by RAG (Retrieval-Augmented Generation) with OpenAI and Upstash Vector",
+  "description": "Frontend for a multi-agent RAG research assistant: streams agent steps and verified, cited answers from a FastAPI backend",
   "author": "Phanendra Palle",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ragsystem"
+    "url": "https://github.com/phani1362/ai-document-assistant"
   },
   "keywords": [
     "rag",
-    "semantic-search",
-    "document-assistant",
-    "embeddings",
-    "openai",
+    "multi-agent",
+    "langgraph",
     "next.js",
     "typescript",
     "ai"
@@ -27,18 +25,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@langchain/core": "^1.1.48",
-    "@langchain/langgraph": "^1.4.12",
-    "@upstash/ratelimit": "^2.0.8",
-    "@upstash/redis": "^1.38.0",
-    "@upstash/vector": "^1.2.3",
-    "mammoth": "^1.12.0",
     "next": "^16.2.7",
-    "openai": "^6.3.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "unpdf": "^1.6.2",
-    "zod": "^4.2.0"
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
