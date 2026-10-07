@@ -14,4 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     if: vars.BACKEND_URL != ''
     steps:
-      - run: curl --fail --silent --show-error --max-time 120 "${{ vars.BACKEND_URL }}/ping"
+      # A sleeping instance can answer with errors while it boots; retry through that.
+      - run: >-
+          curl --fail --silent --show-error --max-time 120
+          --retry 6 --retry-delay 15 --retry-all-errors
+          "${{ vars.BACKEND_URL }}/ping"

@@ -133,10 +133,31 @@ export async function fetchPapers(signal?: AbortSignal): Promise<Paper[]> {
   return page.items;
 }
 
-/** The free backend sleeps when idle; this resolves once it answers (cold start ~30-60 s). */
+const WAKE_DEADLINE_MS = 100_000;
+const WAKE_RETRY_MS = 3_000;
+
+/**
+ * The free backend sleeps when idle; this resolves once it answers (cold start ~30-60 s).
+ * While it boots, the host can answer with errors or drop the connection, so keep
+ * retrying until the deadline instead of treating the first failure as "down".
+ */
 export async function waitForBackend(signal?: AbortSignal): Promise<void> {
-  const response = await fetch(`${API_URL}/health`, { signal, cache: "no-store" });
-  if (!response.ok) {
-    throw new BackendError(await errorMessage(response));
+  const deadline = Date.now() + WAKE_DEADLINE_MS;
+  let lastError = "The backend did not respond.";
+  while (Date.now() < deadline) {
+    try {
+      const response = await fetch(`${API_URL}/health`, { signal, cache: "no-store" });
+      if (response.ok) {
+        return;
+      }
+      lastError = await errorMessage(response);
+    } catch (error) {
+      if (signal?.aborted) {
+        throw error;
+      }
+      lastError = "The backend did not respond.";
+    }
+    await new Promise((resolve) => setTimeout(resolve, WAKE_RETRY_MS));
   }
+  throw new BackendError(lastError);
 }
