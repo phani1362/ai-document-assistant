@@ -9,9 +9,9 @@ streamed to the UI as it happens.
 flowchart TD
     Q([question + history]) --> IG[Input guard<br/><i>regex: injection, PII</i>]
     IG -->|attack| C
-    IG --> R[Router<br/><i>gpt-4.1-nano</i>]
+    IG --> R[Router<br/><i>gpt-5.6-luna</i>]
     R -->|greeting / off-topic / unsafe| C[Canned reply<br/><i>no further LLM spend</i>]
-    R -->|multi-part| P[Planner<br/><i>gpt-4.1-nano</i>]
+    R -->|multi-part| P[Planner<br/><i>gpt-5.6-luna</i>]
     R -->|research| S1
     P -->|Send x N, in parallel| S1[Retriever<br/>dense top-20 -> mini rerank -> top-5]
     S1 --> A[Assemble<br/>merge, dedupe, expand to parent sections]

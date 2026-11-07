@@ -36,6 +36,7 @@ PRICES: dict[str, tuple[float, float]] = {
     "text-embedding-3-small": (0.02, 0.0),
     "gpt-5.4-mini": (0.75, 4.50),
     "gpt-5.4-nano": (0.20, 1.25),
+    "gpt-5.6-luna": (0.20, 1.20),
     "gpt-4.1-mini": (0.40, 1.60),
     "gpt-4.1-nano": (0.10, 0.40),
     "gpt-4o-mini": (0.15, 0.60),

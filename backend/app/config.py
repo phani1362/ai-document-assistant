@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     openai_api_key: str | None = None
     gemini_api_key: str | None = None
     chat_model: str = "gpt-4.1-mini"
-    fast_model: str = "gpt-4.1-nano"
+    fast_model: str = "gpt-5.6-luna"
     # Client-side requests-per-minute cap per model (Gemini's free tier needs ~5).
     llm_rpm: int = 60
     # Hard stop once estimated spend passes this: per process for scripts (e.g. an eval

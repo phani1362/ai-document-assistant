@@ -8,7 +8,7 @@ one is cheap and the expensive ones only see what the cheap ones let through.
 flowchart LR
     Q([question + history]) --> I[Input guard<br/><i>regex, no LLM</i>]
     I -->|attack| B[Refuse]
-    I -->|PII redacted| R[Router<br/><i>gpt-4.1-nano</i>]
+    I -->|PII redacted| R[Router<br/><i>gpt-5.6-luna</i>]
     R -->|unsafe| B
     R -->|research| P[Retrieve, grade, synthesize, verify<br/><i>sources fenced as untrusted data</i>]
     P --> O[Output guard<br/><i>canary + prompt-leak check, PII redaction</i>]
